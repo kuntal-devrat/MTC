@@ -1,0 +1,175 @@
+{
+  "name": "sine_regression_net",
+  "precision": "int16",
+  "input_range": [
+    0.0,
+    1.0
+  ],
+  "target_range": [
+    0.0,
+    1.0
+  ],
+  "epochs": 200,
+  "seed": 42,
+  "layers": [
+    {
+      "type": "dense",
+      "in_features": 1,
+      "out_features": 8
+    },
+    {
+      "type": "relu"
+    },
+    {
+      "type": "dense",
+      "in_features": 8,
+      "out_features": 8
+    },
+    {
+      "type": "relu"
+    },
+    {
+      "type": "dense",
+      "in_features": 8,
+      "out_features": 1
+    },
+    {
+      "type": "sigmoid"
+    }
+  ],
+  "loss": "mse",
+  "optimizer": {
+    "type": "sgd",
+    "learning_rate": 0.05
+  },
+  "training_data": [
+    {
+      "input": [
+        0.0
+      ],
+      "target": [
+        0.5
+      ]
+    },
+    {
+      "input": [
+        0.0667
+      ],
+      "target": [
+        0.6546
+      ]
+    },
+    {
+      "input": [
+        0.1333
+      ],
+      "target": [
+        0.7824
+      ]
+    },
+    {
+      "input": [
+        0.2
+      ],
+      "target": [
+        0.8614
+      ]
+    },
+    {
+      "input": [
+        0.2667
+      ],
+      "target": [
+        0.8779
+      ]
+    },
+    {
+      "input": [
+        0.3333
+      ],
+      "target": [
+        0.8291
+      ]
+    },
+    {
+      "input": [
+        0.4
+      ],
+      "target": [
+        0.7234
+      ]
+    },
+    {
+      "input": [
+        0.4667
+      ],
+      "target": [
+        0.579
+      ]
+    },
+    {
+      "input": [
+        0.5333
+      ],
+      "target": [
+        0.421
+      ]
+    },
+    {
+      "input": [
+        0.6
+      ],
+      "target": [
+        0.2766
+      ]
+    },
+    {
+      "input": [
+        0.6667
+      ],
+      "target": [
+        0.1709
+      ]
+    },
+    {
+      "input": [
+        0.7333
+      ],
+      "target": [
+        0.1221
+      ]
+    },
+    {
+      "input": [
+        0.8
+      ],
+      "target": [
+        0.1386
+      ]
+    },
+    {
+      "input": [
+        0.8667
+      ],
+      "target": [
+        0.2176
+      ]
+    },
+    {
+      "input": [
+        0.9333
+      ],
+      "target": [
+        0.3454
+      ]
+    },
+    {
+      "input": [
+        1.0
+      ],
+      "target": [
+        0.5
+      ]
+    }
+  ]
+}

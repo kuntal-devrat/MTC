@@ -1,0 +1,62 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# C / Embedded build artifacts & images
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+*.elf
+*.bin
+*.hex
+*.map
+/build/
+**/build/
+*.d
+
+# Virtual environments
+.venv/
+**/.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+**/*.egg-info/
+*.egg
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Simulator / Runtime logs & test outputs
+*.log
+/tmp/
+mtc_esp32sim_run/
+validation/esp32sim_convergence.png
+validation/xor_loss_curve.png
+
+# IDE & editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.directory
+
+# Operating System files
+.DS_Store
+Thumbs.db

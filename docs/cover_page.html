@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GL Bajaj MTC Cover Page</title>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Times New Roman', Times, 'Liberation Serif', serif;
+            background: #ffffff;
+            color: #000000;
+            width: 210mm;
+            height: 297mm;
+            padding: 9mm;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .page-border {
+            border: 2.2px solid #000000;
+            width: 100%;
+            height: 100%;
+            padding: 13mm 16mm 12mm 16mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+        }
+        
+        /* Top Institution Header */
+        .inst-header {
+            margin-top: 1mm;
+        }
+        .inst-title {
+            font-size: 20pt;
+            font-weight: bold;
+            line-height: 1.25;
+            letter-spacing: 0.2px;
+            color: #000000;
+        }
+        .dept-title {
+            font-size: 14pt;
+            font-weight: 500;
+            margin-top: 3.5mm;
+            color: #111111;
+        }
+
+        /* Logo Section */
+        .logo-container {
+            margin: 3.5mm auto;
+        }
+        .logo-img {
+            width: 80mm;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Middle Project Details */
+        .project-section {
+            margin: 3mm 0;
+        }
+        .report-badge {
+            font-size: 23pt;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-bottom: 4mm;
+            color: #000000;
+        }
+        .project-title {
+            font-size: 25pt;
+            font-weight: bold;
+            line-height: 1.25;
+            color: #000000;
+            margin-bottom: 3.5mm;
+        }
+        .project-subtitle {
+            font-size: 11.8pt;
+            font-style: italic;
+            color: #222222;
+            line-height: 1.35;
+            max-width: 88%;
+            margin: 0 auto 4.5mm auto;
+        }
+        .session-text {
+            font-size: 15pt;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        /* Bottom Section: Submitted By & Submitted To */
+        .submission-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            text-align: left;
+            margin-top: 2mm;
+            margin-bottom: 3mm;
+            padding: 0 4mm;
+        }
+        .sub-col {
+            flex: 1;
+        }
+        .sub-col.right {
+            padding-left: 12mm;
+        }
+        .sub-heading {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-bottom: 4mm;
+            color: #000000;
+        }
+        .person-table {
+            border-collapse: collapse;
+            font-size: 11.2pt;
+            line-height: 1.4;
+        }
+        .person-table td {
+            vertical-align: top;
+            padding: 1.5px 0;
+        }
+        .person-table td.lbl {
+            width: 25mm;
+            font-weight: normal;
+        }
+        .person-table td.col {
+            width: 5mm;
+            text-align: center;
+        }
+        .person-table td.val {
+            font-weight: 500;
+            color: #000000;
+        }
+        .person-spacer {
+            height: 2.5mm;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <!-- Institution Header -->
+        <div class="inst-header">
+            <h1 class="inst-title">G. L. Bajaj Group of Institutions, Mathura</h1>
+            <h2 class="dept-title">Department of Computer Science & Engineering</h2>
+        </div>
+
+        <!-- College Logo -->
+        <div class="logo-container">
+            <img class="logo-img" src="images/gl_bajaj_logo_tight.png" alt="GL Bajaj Group of Institutions Logo">
+        </div>
+
+        <!-- Project Details -->
+        <div class="project-section">
+            <div class="report-badge">PROGRESS REPORT — 02</div>
+            <div class="project-title">Micro-Train-Compiler (MTC)</div>
+            <div class="project-subtitle">A Source-to-Source Compiler for On-Device Neural Network Training on Microcontrollers</div>
+            <div class="session-text">B.Tech 5<sup>th</sup> Sem, 2026–27 Session</div>
+        </div>
+
+        <!-- Submission Details -->
+        <div class="submission-grid">
+            <!-- Submitted By -->
+            <div class="sub-col">
+                <div class="sub-heading">Submitted By:</div>
+                <table class="person-table">
+                    <tr>
+                        <td class="lbl">Name</td>
+                        <td class="col">:</td>
+                        <td class="val">Ajay Sisodia</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">Roll No.</td>
+                        <td class="col">:</td>
+                        <td class="val">2405111530012</td>
+                    </tr>
+                    <tr class="person-spacer"><td colspan="3"></td></tr>
+                    <tr>
+                        <td class="lbl">Name</td>
+                        <td class="col">:</td>
+                        <td class="val">Harsh Chaudhary</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">Roll No.</td>
+                        <td class="col">:</td>
+                        <td class="val">2405111530067</td>
+                    </tr>
+                    <tr class="person-spacer"><td colspan="3"></td></tr>
+                    <tr>
+                        <td class="lbl">Name</td>
+                        <td class="col">:</td>
+                        <td class="val">Devrat Kuntal</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">Roll No.</td>
+                        <td class="col">:</td>
+                        <td class="val">2405111530055</td>
+                    </tr>
+                    <tr class="person-spacer"><td colspan="3"></td></tr>
+                    <tr>
+                        <td class="lbl">Name</td>
+                        <td class="col">:</td>
+                        <td class="val">Aryan Upadhyay</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">Roll No.</td>
+                        <td class="col">:</td>
+                        <td class="val">2405111530037</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Submitted To -->
+            <div class="sub-col right">
+                <div class="sub-heading">Submitted To:</div>
+                <table class="person-table">
+                    <tr>
+                        <td class="lbl">Name</td>
+                        <td class="col">:</td>
+                        <td class="val">Gaurisha Sisodia</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">Designation</td>
+                        <td class="col">:</td>
+                        <td class="val">Asst. Professor</td>
+                    </tr>
+                    <tr class="person-spacer"><td colspan="3"></td></tr>
+                    <tr>
+                        <td colspan="3" style="padding-top: 4mm; font-size: 10.2pt; color: #333333; line-height: 1.35;">
+                            Department of Computer Science & Engineering<br>
+                            GL Bajaj Group of Institutions, Mathura
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
