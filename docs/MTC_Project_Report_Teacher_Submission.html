@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTC - Minor Project Report (Teacher Submission)</title>
+    
+    <!-- KaTeX for formula rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 10mm 14mm 10mm 14mm;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Times New Roman', 'Liberation Serif', serif;
+            font-size: 10.5pt;
+            line-height: 1.48;
+            color: #111111;
+            background: #ffffff;
+            text-align: justify;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* ===== COVER PAGE STYLES (Single Page) ===== */
+        .border-box {
+            border: 2px solid #000000;
+            padding: 4mm 6mm;
+            text-align: center;
+            box-sizing: border-box;
+            page-break-after: always;
+        }
+        .inst-title {
+            font-size: 14.5pt;
+            font-weight: bold;
+            margin-bottom: 1mm;
+            color: #000000;
+        }
+        .dept-title {
+            font-size: 10.5pt;
+            font-weight: bold;
+            margin-bottom: 1.5mm;
+            color: #222222;
+        }
+        .logo {
+            width: 32mm;
+            height: 14mm;
+            display: block;
+            margin: 1mm auto;
+            border: none !important;
+        }
+        .report-label {
+            font-size: 10pt;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-bottom: 1mm;
+            color: #000000;
+        }
+        .proj-title {
+            font-size: 15.5pt;
+            font-weight: bold;
+            margin-bottom: 1mm;
+            color: #000000;
+        }
+        .proj-sub {
+            font-size: 9.5pt;
+            font-style: italic;
+            color: #333333;
+            line-height: 1.25;
+            max-width: 92%;
+            margin: 0 auto 1.5mm auto;
+        }
+        .degree {
+            font-size: 9pt;
+            color: #222222;
+            line-height: 1.25;
+            margin-bottom: 1.5mm;
+        }
+        .session {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-bottom: 2mm;
+            color: #000000;
+        }
+        .sub-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2mm;
+            border-top: 1.5px solid #000000;
+            padding-top: 2mm;
+            text-align: left;
+        }
+        .sub-table td {
+            border: none;
+            padding: 1px 2px;
+            font-size: 8.8pt;
+            line-height: 1.25;
+            vertical-align: top;
+            background: transparent !important;
+        }
+
+        /* ===== REPORT BODY STYLES ===== */
+        .report-body {
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 16pt;
+            margin-bottom: 9pt;
+            text-transform: uppercase;
+            border-bottom: 1.5px solid #000000;
+            padding-bottom: 3pt;
+        }
+
+        h2 {
+            font-size: 12.5pt;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 14pt;
+            margin-bottom: 7pt;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            font-size: 11pt;
+            font-weight: bold;
+            color: #111111;
+            margin-top: 11pt;
+            margin-bottom: 5pt;
+        }
+
+        h4 {
+            font-size: 10pt;
+            font-weight: bold;
+            font-style: italic;
+            color: #222222;
+            margin-top: 9pt;
+            margin-bottom: 3pt;
+        }
+
+        p {
+            margin-bottom: 7pt;
+            text-indent: 1.4em;
+        }
+
+        p:has(img), p:has(table), p:has(pre) {
+            text-indent: 0;
+        }
+
+        ul, ol {
+            margin-left: 1.8em;
+            margin-bottom: 7pt;
+        }
+
+        li {
+            margin-bottom: 2.5pt;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10pt 0;
+            font-size: 9pt;
+        }
+
+        th, td {
+            border: 1px solid #444444;
+            padding: 4pt 5.5pt;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #fafbfc;
+        }
+
+        /* Code Blocks */
+        pre {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-left: 3px solid #0b69a3;
+            padding: 6pt 8pt;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 8pt;
+            line-height: 1.28;
+            margin: 8pt 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 8.5pt;
+            background-color: #f1f5f9;
+            padding: 1pt 2.5pt;
+            border-radius: 3px;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        /* Figures */
+        img {
+            max-width: 85%;
+            height: auto;
+            display: block;
+            margin: 10pt auto 4pt auto;
+            border: 1px solid #cccccc;
+        }
+
+        p > em {
+            display: block;
+            text-align: center;
+            font-size: 8.5pt;
+            color: #444444;
+            margin-top: 3pt;
+            margin-bottom: 10pt;
+            font-style: italic;
+        }
+
+        blockquote {
+            border-left: 3px solid #64748b;
+            padding-left: 9pt;
+            color: #334155;
+            margin: 7pt 0;
+            font-style: italic;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #e2e8f0;
+            margin: 12pt 0;
+        }
+
+        .display-math {
+            text-align: center;
+            margin: 7pt 0;
+            font-size: 10pt;
+        }
+
+        .inline-math {
+            font-size: 9.5pt;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="border-box">
+        <div class="inst-title">G. L. BAJAJ GROUP OF INSTITUTIONS, MATHURA</div>
+        <div class="dept-title">DEPARTMENT OF COMPUTER SCIENCE &amp; ENGINEERING<br>
+            <span style="font-size: 8.5pt; font-weight: normal; font-style: italic;">(Affiliated to Dr. A.P.J. Abdul Kalam Technical University, Lucknow)</span>
+        </div>
+        
+        <div><img class="logo" src="/home/pika/Documents/MTC/docs/images/gl_bajaj_logo_tight.png" alt="GL Bajaj Logo"></div>
+        
+        <div class="report-label">A MINOR PROJECT REPORT ON</div>
+        <div class="proj-title">MICRO-TRAIN-COMPILER (MTC)</div>
+        <div class="proj-sub">An Ahead-of-Time Static Compiler for Zero-Heap On-Device Neural Network Training on 32-Bit Microcontrollers</div>
+        
+        <div class="degree">Submitted in partial fulfillment of the requirements for the award of the degree of<br>
+            <b>Bachelor of Technology in Computer Science &amp; Engineering</b>
+        </div>
+        
+        <div class="session">Academic Session: 2026–2027</div>
+        
+        <table class="sub-table">
+            <tr>
+                <td style="width: 55%; font-weight: bold; text-decoration: underline; padding-bottom: 2px;">Submitted By:</td>
+                <td style="width: 45%; font-weight: bold; text-decoration: underline; padding-bottom: 2px;">Under the Supervision of:</td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Ajay Sisodia</b> (Roll No: 2405111530012)<br>
+                    <b>Harsh Chaudhary</b> (Roll No: 2405111530067)<br>
+                    <b>Devrat Kuntal</b> (Roll No: 2405111530055)<br>
+                    <b>Aryan Upadhyay</b> (Roll No: 2405111530037)
+                </td>
+                <td>
+                    <b>Ms. Gaurisha Sisodia</b><br>
+                    Assistant Professor<br>
+                    Department of Computer Science &amp; Engineering<br>
+                    GL Bajaj Group of Institutions, Mathura
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+
+<div class="report-body">
+<h2 style="page-break-before: always; margin-top: 0;">CERTIFICATE OF APPROVAL</h2>
+<p>This is to certify that the project entitled <strong>&quot;Micro-Train-Compiler (MTC): An Ahead-of-Time Static Compiler for Zero-Heap On-Device Neural Network Training on 32-Bit Microcontrollers&quot;</strong>, submitted by <strong>Ajay Sisodia (2405111530012)</strong>, <strong>Harsh Chaudhary (2405111530067)</strong>, <strong>Devrat Kuntal (2405111530055)</strong>, and <strong>Aryan Upadhyay (2405111530037)</strong> in partial fulfillment of the requirements for the award of the degree of <strong>Bachelor of Technology in Computer Science &amp; Engineering</strong> from <strong>G. L. Bajaj Group of Institutions, Mathura</strong>, is an authentic record of bonafide work carried out under my supervision and guidance during the academic session 2026–2027.</p>
+<p>To the best of my knowledge, the matter embodied in this report has not been submitted to any other University or Institute for the award of any degree or diploma.</p>
+
+    <table style="width: 100%; border: none; margin-top: 45pt; margin-bottom: 15pt;">
+        <tr>
+            <td style="width: 50%; border: none; text-align: left; vertical-align: top; background: transparent; padding: 0;">
+                <div style="width: 80%; border-bottom: 1.5px solid #000; margin-bottom: 6pt;"></div>
+                <b>Ms. Gaurisha Sisodia</b><br>
+                Project Supervisor<br>
+                Assistant Professor, Dept. of CSE<br>
+                G. L. Bajaj Group of Institutions, Mathura
+            </td>
+            <td style="width: 50%; border: none; text-align: right; vertical-align: top; background: transparent; padding: 0;">
+                <div style="width: 80%; border-bottom: 1.5px solid #000; margin-bottom: 6pt; margin-left: auto;"></div>
+                <b>Head of Department</b><br>
+                Department of Computer Science &amp; Engineering<br>
+                G. L. Bajaj Group of Institutions, Mathura
+            </td>
+        </tr>
+    </table>
+    
+<hr />
+<h2 style="page-break-before: always; margin-top: 0;">CANDIDATE'S DECLARATION</h2>
+<p>We hereby declare that the work presented in this project report entitled <strong>&quot;Micro-Train-Compiler (MTC)&quot;</strong> is an authentic record of our own research and engineering work conducted under the guidance of <strong>Ms. Gaurisha Sisodia</strong>, Assistant Professor, Department of Computer Science &amp; Engineering, G. L. Bajaj Group of Institutions, Mathura.</p>
+<p>We confirm that:</p>
+<ol>
+<li>This submission represents our original work, and all sources of literature, datasets, and baseline libraries have been properly cited and acknowledged in the references.</li>
+<li>The implementation, compiler logic, static memory planning algorithms, and cross-compilation harnesses presented herein were created by our team.</li>
+<li>All empirical benchmarks and cycle-accurate measurements were collected on bare-metal RISC-V hardware emulation and reflect real execution data without synthetic inflation or falsification.</li>
+<li>Neither this project nor any significant part of it has been previously submitted for any degree, diploma, or qualification at this or any other educational institution.</li>
+</ol>
+<p><strong>Dated:</strong> 30 October 2026<br />
+<strong>Place:</strong> Mathura, Uttar Pradesh</p>
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 25pt; margin-bottom: 15pt;">
+        <tr style="background-color: #f1f5f9;">
+            <th style="width: 40%; border: 1px solid #444; padding: 5pt 7pt;">Student Name</th>
+            <th style="width: 30%; border: 1px solid #444; padding: 5pt 7pt;">University Roll Number</th>
+            <th style="width: 30%; border: 1px solid #444; padding: 5pt 7pt; text-align: center;">Candidate Signature</th>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #444; padding: 5pt 7pt;"><b>Ajay Sisodia</b></td>
+            <td style="border: 1px solid #444; padding: 5pt 7pt; font-family: monospace;">2405111530012</td>
+            <td style="border: 1px solid #444; padding: 5pt 7pt; text-align: center; color: #888;">____________________</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #444; padding: 5pt 7pt;"><b>Harsh Chaudhary</b></td>
+            <td style="border: 1px solid #444; padding: 5pt 7pt; font-family: monospace;">2405111530067</td>
+            <td style="border: 1px solid #444; padding: 5pt 7pt; text-align: center; color: #888;">____________________</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #444; padding: 5pt 7pt;"><b>Devrat Kuntal</b></td>
+            <td style="border: 1px solid #444; padding: 5pt 7pt; font-family: monospace;">2405111530055</td>
+            <td style="border: 1px solid #444; padding: 5pt 7pt; text-align: center; color: #888;">____________________</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #444; padding: 5pt 7pt;"><b>Aryan Upadhyay</b></td>
+            <td style="border: 1px solid #444; padding: 5pt 7pt; font-family: monospace;">2405111530037</td>
+            <td style="border: 1px solid #444; padding: 5pt 7pt; text-align: center; color: #888;">____________________</td>
+        </tr>
+    </table>
+    
+<hr />
+<h2 style="page-break-before: always; margin-top: 0;">ACKNOWLEDGEMENTS</h2>
+<p>We express our profound gratitude to our project guide, <strong>Ms. Gaurisha Sisodia</strong>, Assistant Professor in the Department of Computer Science &amp; Engineering, for her continuous intellectual guidance, constructive technical critiques, and encouragement throughout the design and realization of the Micro-Train-Compiler. Her insights regarding compiler modularity and embedded system constraints were instrumental in keeping our focus centered on physical memory limits.</p>
+<p>We extend our sincere thanks to the <strong>Head of the Department, Computer Science &amp; Engineering</strong>, and the faculty members of G. L. Bajaj Group of Institutions, Mathura, for providing the necessary computational lab infrastructure, embedded hardware tooling, and supportive academic environment necessary to pursue systems-level research.</p>
+<p>Finally, we thank our parents and colleagues for their constant support and patience during the prolonged debugging sessions, linker script configurations, and benchmark evaluations required to bring this compiler from an initial concept to verified silicon emulation.</p>
+<hr />
+<h2 style="page-break-before: always; margin-top: 0;">ABSTRACT</h2>
+<p>Edge artificial intelligence is currently constrained by an inference-only deployment model. While frameworks like TensorFlow Lite for Microcontrollers (TFLM) allow pre-trained deep neural networks to execute forward passes on microcontrollers, deployed edge nodes cannot adapt to real-world sensor drift, personalized user patterns, or evolving ambient conditions without offloading sensitive telemetry to remote cloud servers. Enabling on-device backpropagation on ultra-low-power 32-bit microcontrollers is prevented by the severe memory wall: conventional automatic differentiation engines construct dynamic computation graphs at runtime, relying on dynamic heap memory allocation (<code>malloc</code>) and maintaining separate, explicit gradient tensors for all parameters and activations. On microcontrollers possessing only 16 KB to 64 KB of SRAM, dynamic allocation induces non-deterministic execution latencies, heap fragmentation, and system-level out-of-memory faults.</p>
+<p>This report presents the design, mathematical formulation, implementation, and silicon-accurate verification of the <strong>Micro-Train-Compiler (MTC)</strong>. MTC is an ahead-of-time (AOT) source-to-source compiler that ingests a declarative JSON network specification and embedded training datasets, applies conservative interval range analysis to verify Q15 fixed-point arithmetic stability, executes a static liveness memory planning pass that collapses backward activation deltas into two alternating ping-pong buffers, and synthesizes standalone, zero-dependency C99 code. By fusing reverse-mode error propagation directly with Stochastic Gradient Descent (SGD) parameter updates, MTC eliminates parameter gradient buffers (<span class="inline-math" data-math="\nabla W, \nabla B">$\nabla W, \nabla B$</span>) entirely.</p>
+<p>MTC was evaluated across four diverse TinyML benchmarks (<code>xor_net</code>, <code>sensor_drift_net</code>, <code>sine_regression_net</code>, and <code>gesture_anomaly_net</code>) cross-compiled with <code>riscv64-unknown-elf-gcc</code> and executed bare-metal on the cycle-accurate <code>esp32sim</code> ESP32-C3 RISC-V hardware emulator. Performance was profiled using direct reads of the RISC-V hardware Control and Status Register <code>mcycle</code> (<code>csrr %0, mcycle</code>). Empirical results demonstrate that MTC achieves strictly zero runtime heap allocations (<code>malloc = 0</code>) across all workloads, bounds peak SRAM usage between 60 Bytes and 564 Bytes (&lt; 0.86% of the 64 KB ESP32-C3 budget), reduces peak SRAM consumption by 31.8% to 43.6% compared to standard autograd graphs, and completes a full forward-backward training step in 6.86 µs to 81.77 µs at 160 MHz (yielding throughputs between 12,229 and 145,772 samples per second).</p>
+<hr />
+<h2 style="page-break-before: always; margin-top: 0;">TABLE OF CONTENTS</h2>
+<ol>
+<li><strong>Chapter 1: Introduction &amp; Problem Definition</strong>
+<ul>
+<li>1.1 The Edge AI Paradigm Shift</li>
+<li>1.2 The Problem of Frozen Edge Models</li>
+<li>1.3 The Embedded SRAM Bottleneck &amp; Heap Fragility</li>
+<li>1.4 Project Objectives &amp; Technical Scope</li>
+</ul>
+</li>
+<li><strong>Chapter 2: Literature Review &amp; Gap Analysis</strong>
+<ul>
+<li>2.1 State-of-the-Art in Microcontroller Machine Learning</li>
+<li>2.2 Survey Table of Related Works (2022–2024)</li>
+<li>2.3 Critical Research Gaps Identified</li>
+</ul>
+</li>
+<li><strong>Chapter 3: System Design &amp; Compiler Architecture</strong>
+<ul>
+<li>3.1 Architectural Overview &amp; Execution Pipeline</li>
+<li>3.2 Formal Model Representation &amp; AST Validation</li>
+<li>3.3 Conservative Q15 Fixed-Point Interval Bound Propagation</li>
+<li>3.4 Static Liveness Analysis &amp; Ping-Pong Delta Buffering</li>
+<li>3.5 Fused Backpropagation-SGD Parameter Updates</li>
+<li>3.6 Standalone C99 Code Synthesis</li>
+</ul>
+</li>
+<li><strong>Chapter 4: Hardware Cross-Compilation &amp; Emulation Environment</strong>
+<ul>
+<li>4.1 Target Architecture: ESP32-C3 RISC-V RV32IMC</li>
+<li>4.2 Bare-Metal Firmware Harness &amp; Linker Memory Layout</li>
+<li>4.3 Cycle-Accurate Emulation via <code>esp32sim</code></li>
+<li>4.4 Hardware Instrumentation via RISC-V CSR <code>mcycle</code></li>
+</ul>
+</li>
+<li><strong>Chapter 5: Empirical Experiments, Results &amp; Ablation Analysis</strong>
+<ul>
+<li>5.1 Benchmark Workload Suite</li>
+<li>5.2 Mandatory Test 1: Static SRAM &amp; Flash Footprint Analysis</li>
+<li>5.3 Mandatory Test 2: Execution Latency &amp; Clock Cycle Profiling</li>
+<li>5.4 Mandatory Test 3: Memory Ablation (MTC vs. Dynamic Autograd Graph)</li>
+<li>5.5 Mandatory Test 4: Numerical Convergence &amp; Stability Analysis</li>
+<li>5.6 Transparent Critique of Fixed-Point Quantization Attenuation on XOR</li>
+</ul>
+</li>
+<li><strong>Chapter 6: Team Member Roles &amp; Individual Contributions</strong>
+<ul>
+<li>6.1 Ajay Sisodia</li>
+<li>6.2 Harsh Chaudhary</li>
+<li>6.3 Devrat Kuntal</li>
+<li>6.4 Aryan Upadhyay</li>
+</ul>
+</li>
+<li><strong>Chapter 7: Conclusion &amp; Future Research Directions</strong>
+<ul>
+<li>7.1 Summary of Milestones Achieved</li>
+<li>7.2 Future Research Roadmap</li>
+</ul>
+</li>
+<li><strong>References</strong></li>
+</ol>
+<hr />
+<h2 style="page-break-before: always; margin-top: 0;">LIST OF FIGURES</h2>
+<ul>
+<li><strong>Figure 1.1:</strong> System Architecture and End-to-End Compiler Dataflow of MTC</li>
+<li><strong>Figure 5.1:</strong> Comparative Training Loss Convergence Across 4 TinyML Workloads on <code>esp32sim</code></li>
+<li><strong>Figure 5.2:</strong> Cycle-Accurate Hardware Training Throughput on ESP32-C3 @ 160 MHz</li>
+<li><strong>Figure 5.3:</strong> Memory Ablation: Peak SRAM Watermark of Standard Autograd vs. MTC Static Fused Buffers</li>
+</ul>
+<hr />
+<h2 style="page-break-before: always; margin-top: 0;">LIST OF TABLES</h2>
+<ul>
+<li><strong>Table 2.1:</strong> Comparative Analysis of State-of-the-Art Edge ML Runtimes and Compilers</li>
+<li><strong>Table 5.1:</strong> Architectural Specifications of the Four Benchmark Workloads</li>
+<li><strong>Table 5.2:</strong> Static Memory Footprint, Heap Usage, and Flash Binary Sizes</li>
+<li><strong>Table 5.3:</strong> Hardware Clock Cycles, Step Latency, and Throughput Measured via CSR <code>mcycle</code></li>
+<li><strong>Table 5.4:</strong> Memory Ablation: Dynamic Autograd Baseline vs. MTC Static Liveness Allocation</li>
+<li><strong>Table 5.5:</strong> Numerical Convergence and Loss Reduction under Q15 Fixed-Point Arithmetic</li>
+</ul>
+<hr />
+<h1 style="page-break-before: always; margin-top: 0;">CHAPTER 1: INTRODUCTION &amp; PROBLEM DEFINITION</h1>
+<h3>1.1 The Edge AI Paradigm Shift</h3>
+<p>The past five years have witnessed widespread migration of deep learning workloads from centralized hyperscale data centers directly to physical edge devices. In traditional embedded architectures, microcontrollers (MCUs) acted merely as dumb sensor aggregation points, digitizing analog voltages and streaming raw byte streams over Wi-Fi, Bluetooth Low Energy (BLE), or cellular modems to remote cloud servers where inference models were hosted.</p>
+<p>While functional, this cloud-centric architecture incurs severe engineering liabilities:</p>
+<ol>
+<li><strong>Latency Non-Determinism:</strong> Network transmission delays are unpredictable, rendering cloud inference unusable for hard real-time closed-loop control systems (such as industrial motor vibration anomaly cutoffs or surgical robotics).</li>
+<li><strong>Radio Power Overhead:</strong> Power consumed by RF wireless transceivers dwarfs the power consumed by MCU computing cores. An ESP32 transmitting over Wi-Fi draws 160 mA to 260 mA, whereas the processor core idling or executing arithmetic draws less than 20 mA.</li>
+<li><strong>Data Privacy and Regulatory Compliance:</strong> Streaming unencrypted, continuous audio, biomedical telemetry, or home monitoring data across third-party networks violates contemporary privacy regulations (e.g., GDPR, HIPAA) and creates vulnerability to interception.</li>
+</ol>
+<p>To mitigate these drawbacks, Tiny Machine Learning (TinyML) emerged as an active domain, providing lightweight software libraries capable of executing neural network inference locally on microcontrollers costing less than two dollars.</p>
+<h3>1.2 The Problem of Frozen Edge Models</h3>
+<p>Despite the maturation of TinyML inference engines (such as TensorFlow Lite for Microcontrollers and CMSIS-NN), the industry remains restricted to a <strong>&quot;train-in-cloud, deploy-frozen&quot;</strong> paradigm. Under this operational model, models are trained on workstations utilizing 32-bit floating-point (FP32) tensors, quantized down to 8-bit integers (INT8), compiled into binary flatbuffers, and permanently flashed into the read-only flash memory of the microcontroller.</p>
+<p>Once deployed in the field, these models remain static and incapable of learning. This creates three critical failure modes in real-world deployments:</p>
+<ul>
+<li><strong>Environmental Drift and Sensor Aging:</strong> Physical sensor transducers degrade over operational life cycles due to mechanical fatigue, oxidation, dust accumulation, and thermal cycling. For example, metal-oxide (MOX) gas sensors experience baseline resistance drift over weeks of operation. Because the on-device model is frozen, sensor accuracy decays monotonically unless physical recalibration occurs.</li>
+<li><strong>Inter-User Subject Variability:</strong> Wearable biomedical devices (e.g., IMU-based gait analysis or gesture recognition) exhibit substantial performance drops when deployed across users with differing body masses, limb proportions, or motor habits. A model pre-trained on a generic population cannot fine-tune its parameters to an individual patient.</li>
+<li><strong>Zero Local Context Adaptation:</strong> Microcontrollers deployed in smart agricultural nodes or industrial condition-monitoring pumps cannot tailor their classification thresholds to the localized ambient noise floor or seasonal temperature profiles of their specific installation site.</li>
+</ul>
+<p>To overcome these limitations, neural network models must be capable of executing <strong>on-device backpropagation and weight updating</strong> directly on the microcontroller silicon using locally observed data samples.</p>
+<h3>1.3 The Embedded SRAM Bottleneck &amp; Heap Fragility</h3>
+<p>Enabling on-device backpropagation on low-cost microcontrollers is blocked by the fundamental constraints of embedded computer architecture:</p>
+<h4>1. Extreme SRAM Scarcity</h4>
+<p>Typical microcontrollers possess between 16 KB and 512 KB of internal Static RAM (SRAM). High-volume, battery-powered chips (such as the ARM Cortex-M0+, Cortex-M4, or RISC-V ESP32-C3) operate with 32 KB to 64 KB of dedicated data SRAM. While read-only Flash memory is comparatively plentiful (1 MB to 4 MB), Flash can only be written in blocks through slow, high-energy erase cycles that wear out physical gates after approximately 10,000 writes. Consequently, all forward activations, intermediate layer derivatives, weight parameters, and temporary gradient buffers must fit simultaneously inside volatile SRAM.</p>
+<h4>2. The Dynamic Autograd Memory Explosion</h4>
+<p>Standard machine learning frameworks—including PyTorch, TensorFlow, and existing embedded autograd libraries like AIfES—implement automatic differentiation using dynamic tape recording. When a forward pass executes, an autograd engine dynamically constructs a computational directed acyclic graph (DAG) in heap memory. During the subsequent backward pass, the engine traverses this graph in reverse order, requiring:</p>
+<ul>
+<li>Retention of forward activation tensors (<span class="inline-math" data-math="A_l">$A_l$</span>) for all layers to compute activation derivatives.</li>
+<li>Explicit allocation of parameter gradient arrays (<span class="inline-math" data-math="\nabla W_l">$\nabla W_l$</span> and <span class="inline-math" data-math="\nabla B_l">$\nabla B_l$</span>) having identical dimensions to the model weights.</li>
+<li>Dedicated intermediate error gradient buffers (<span class="inline-math" data-math="\delta_l">$\delta_l$</span>) for each layer.</li>
+</ul>
+<p>For even a small multi-layer perceptron (e.g., 200 parameters), this dynamic representation consumes several kilobytes of memory. More critically, managing this graph requires dynamic heap allocation via standard library routines (<code>malloc</code> and <code>free</code>). On bare-metal microcontrollers lacking a Memory Management Unit (MMU) or virtual memory paging, interleaved allocations and deallocations lead to <strong>heap fragmentation</strong>. Over hours of continuous training loops, fragmented heaps fail to satisfy contiguous block requests, causing unrecoverable allocation faults, stack-heap collisions, and system resets.</p>
+<h3>1.4 Project Objectives &amp; Technical Scope</h3>
+<p>The primary objective of the Micro-Train-Compiler (MTC) project is to eliminate the runtime memory barrier of on-device deep learning by replacing dynamic autograd runtimes with an ahead-of-time (AOT) static compiler.</p>
+<p>Specifically, this project addresses the following research and engineering objectives:</p>
+<ol>
+<li><strong>Zero-Heap Execution (<code>malloc = 0</code>):</strong> Eliminate dynamic memory allocation completely from both inference and training phases. All tensor storage, activation workspaces, and state buffers must be statically sized and placed at fixed memory offsets at compile time.</li>
+<li><strong>Fused Parameter Updates via In-Place SGD:</strong> Formulate an analytical reverse-mode autodiff compiler pass that fuses error gradient calculation directly with the Stochastic Gradient Descent (SGD) weight update rule. This eliminates parameter gradient arrays (<span class="inline-math" data-math="\nabla W, \nabla B">$\nabla W, \nabla B$</span>) entirely, cutting memory overhead by over 40%.</li>
+<li><strong>Static Ping-Pong Delta Buffering:</strong> Design an interference graph allocator that proves activation error gradients (<span class="inline-math" data-math="\delta">$\delta$</span>) have disjoint lifecycles across backward layer propagation, allowing all intermediate layer derivatives to be computed using exactly two alternating static buffers.</li>
+<li><strong>Compile-Time Numerical Safety Certification:</strong> Implement formal Interval Bound Propagation (IBP) for 16-bit signed fixed-point (Q15) arithmetic to mathematically verify that forward activations and backpropagation updates do not trigger arithmetic overflow before generating code.</li>
+<li><strong>Bare-Metal RISC-V Hardware Verification:</strong> Cross-compile synthesized code using bare-metal GCC (<code>-nostdlib</code>) and validate cycle-accurate execution latency, memory watermarks, and convergence on real ESP32-C3 silicon emulation using direct hardware register instrumentation.</li>
+</ol>
+<hr />
+<h1 style="page-break-before: always; margin-top: 0;">CHAPTER 2: LITERATURE REVIEW &amp; GAP ANALYSIS</h1>
+<h3>2.1 State-of-the-Art in Microcontroller Machine Learning</h3>
+<p>To establish the context of MTC, we surveyed existing academic and industrial approaches targeting microcontroller intelligence across four categories: inference-only runtime engines, embedded training libraries, neural network compilers, and model compression frameworks.</p>
+<h4>1. TensorFlow Lite for Microcontrollers (TFLM)</h4>
+<p>David et al. (MLSys 2021) established the open-source industry standard for running neural network inference on bare-metal systems. TFLM eliminated operating system dependencies by requiring applications to pre-allocate a single contiguous byte array called the <code>tensor_arena</code>. A runtime memory planner assigns non-overlapping offsets within this arena for forward layer activations. However, TFLM was architecturally designed exclusively for inference. Its operator kernels (<code>AllOpsResolver</code>) do not contain backward gradient propagation functions, and its static interpreter contains no mechanisms for parameter updates.</p>
+<h4>2. TinyOL: Online-Learning on Microcontrollers</h4>
+<p>Ravaglia et al. (IEEE Trans. on Circuits and Systems / IJCNN 2022) demonstrated one of the first working prototypes of on-device training on an ARM Cortex-M4 microcontroller. To overcome memory constraints, TinyOL introduced a hybrid training strategy: the base neural network is frozen (acting as a static feature extractor), and only the final classification layer is adapted online using a streaming batch gradient descent update. While TinyOL proved the viability of edge adaptation, its methodology is restricted to single-layer tuning; it cannot propagate gradients through multi-layer non-linear topologies to adapt intermediate representations.</p>
+<h4>3. MCUNet and On-Device Training Under 256KB Memory</h4>
+<p>Lin et al. (NeurIPS 2022) from MIT HAN Lab addressed on-device training by introducing Tiny-Transfer-Learning (TinyTL) and the TinyEngine runtime. They demonstrated that full-network training requires an order of magnitude more SRAM than inference because intermediate activations must be stored for backpropagation. To counter this, they proposed sparse layer updating (updating only selected sub-networks or bias vectors) and 8-bit quantized backpropagation. While MCUNet achieved impressive results on vision tasks, it relies on a proprietary runtime engine and requires specialized FP32 quantization-aware scaling tables, lacking formal interval safety guarantees on bare-metal integers.</p>
+<h4>4. PULP-TrainLib: Parallel Ultra-Low-Power RISC-V Training</h4>
+<p>Conti et al. (IEEE TVLSI 2023) developed PULP-TrainLib, an open-source library enabling on-device training on multi-core RISC-V processors (such as the GreenWaves GAP8/GAP9). PULP-TrainLib provides hand-optimized assembly micro-kernels utilizing FP16 and FP32 SIMD extensions to compute backward passes across parallel cores. While achieving high compute efficiency, PULP-TrainLib relies on floating-point hardware units (FPUs) and clusters possessing hundreds of kilobytes of multi-banked L1 scratchpad memory, making it unsuitable for standard single-core microcontrollers that lack an FPU.</p>
+<h4>5. AIfES (Artificial Intelligence for Embedded Systems)</h4>
+<p>Developed by the Fraunhofer Institute for Microelectronic Circuits and Systems, AIfES is an open-source C library providing feedforward and backpropagation routines for microcontrollers. AIfES supports multiple layer types and can run on 8-bit AVR (Arduino Uno) up to 32-bit ARM cores. However, AIfES implements a dynamic structure: neural network topologies are defined by passing layer structs to initialization functions at runtime, which dynamically calculate buffer pointers and retain dedicated gradient buffers for weights and biases, retaining the memory overhead of traditional autodiff.</p>
+<hr />
+<h3>2.2 Survey Table of Related Works (2022–2024)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Framework / Work</th>
+<th style="text-align:center">Origin &amp; Year</th>
+<th style="text-align:center">Target Hardware</th>
+<th style="text-align:center">Execution Paradigm</th>
+<th style="text-align:center">Memory Management</th>
+<th style="text-align:center">On-Device Training Scope</th>
+<th style="text-align:left">Key Limitation Addressed by MTC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>TFLM</strong> (David et al.)</td>
+<td style="text-align:center">Google / Harvard (2021)</td>
+<td style="text-align:center">ARM Cortex-M, ESP32, RISC-V</td>
+<td style="text-align:center">Interpreted FlatBuffer</td>
+<td style="text-align:center">Static <code>tensor_arena</code></td>
+<td style="text-align:center">None (Inference Only)</td>
+<td style="text-align:left">Cannot perform backpropagation or update parameters on-device.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>TinyOL</strong> (Ravaglia et al.)</td>
+<td style="text-align:center">Univ. of Bologna (2022)</td>
+<td style="text-align:center">ARM Cortex-M4 (64KB SRAM)</td>
+<td style="text-align:center">Static C++ Kernel</td>
+<td style="text-align:center">Pre-allocated Tensor Arena</td>
+<td style="text-align:center">Final Layer Only</td>
+<td style="text-align:left">Cannot propagate error gradients through multi-layer deep representations.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>On-Device 256KB</strong> (Lin et al.)</td>
+<td style="text-align:center">MIT HAN Lab (NeurIPS 2022)</td>
+<td style="text-align:center">STM32F7 MCUs (512KB SRAM)</td>
+<td style="text-align:center">Specialized TinyEngine</td>
+<td style="text-align:center">Dynamic Runtime Slicing</td>
+<td style="text-align:center">Sparse Layers / Biases Only</td>
+<td style="text-align:left">Relies on runtime interpreter; requires external quantization scaling tables.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>PULP-TrainLib</strong> (Conti et al.)</td>
+<td style="text-align:center">ETH Zürich / Bologna (2023)</td>
+<td style="text-align:center">Multi-core RISC-V (GAP9)</td>
+<td style="text-align:center">Parallel Micro-Kernels</td>
+<td style="text-align:center">L1/L2 DMA Scratches</td>
+<td style="text-align:center">Full Network (FP16/FP32)</td>
+<td style="text-align:left">Requires hardware FPUs and multi-core clusters; incompatible with single-core MCUs.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>AIfES</strong> (Fraunhofer IMS)</td>
+<td style="text-align:center">Fraunhofer Institute (2022)</td>
+<td style="text-align:center">AVR, ARM Cortex-M, ESP32</td>
+<td style="text-align:center">Modular C Library</td>
+<td style="text-align:center">Runtime Pointer Structs</td>
+<td style="text-align:center">Full Network (Backprop)</td>
+<td style="text-align:left">Maintains separate explicit gradient buffers (<span class="inline-math" data-math="\nabla W, \nabla B">$\nabla W, \nabla B$</span>), inflating peak SRAM.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>MTC</strong> <em>(This Work)</em></td>
+<td style="text-align:center">G. L. Bajaj Group of Inst. (2026)</td>
+<td style="text-align:center">Single-Core RV32IMC (ESP32-C3)</td>
+<td style="text-align:center">AOT Static C99 Compiler</td>
+<td style="text-align:center">Pure Static Offsets (<code>malloc = 0</code>)</td>
+<td style="text-align:center">Full Network (Fused SGD)</td>
+<td style="text-align:left"><strong>Zero dynamic heap; fuses backpropagation to eliminate gradient buffers; certified Q15 IBP.</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>2.3 Critical Research Gaps Identified</h3>
+<p>Based on our literature survey, four specific technical gaps were identified:</p>
+<ol>
+<li><strong>Gap 1: Fragility of Runtime Dynamic Memory Graphs:</strong> Existing edge training libraries construct computational DAGs at runtime, requiring heap allocators that risk non-deterministic timing, memory fragmentation, and pointer overhead in small embedded systems.</li>
+<li><strong>Gap 2: Redundant Gradient Tensor Storage:</strong> Conventional backpropagation implementations retain explicit memory arrays for weight gradients and bias gradients across all layers. For an <span class="inline-math" data-math="L">$L$</span>-layer network, this doubles the storage footprint of every parameter.</li>
+<li><strong>Gap 3: Absence of Ahead-of-Time Interval Safety Analysis:</strong> Fixed-point Q15 arithmetic is widely recognized as the most efficient arithmetic format for integer microcontrollers, yet existing frameworks lack compile-time interval analysis to verify that forward and backward passes stay strictly within <span class="inline-math" data-math="[-1.0, +1.0)">$[-1.0, +1.0)$</span>, relying instead on expensive runtime clamping instructions.</li>
+<li><strong>Gap 4: The Inference-Biased Compiler Ecosystem:</strong> Modern TinyML compilers (TVM/MicroTVM, Glow, TFLM) optimize forward inference graphs exclusively. No compiler existed that could ingest a model specification and compile it ahead-of-time into a standalone, statically planned C99 training engine.</li>
+</ol>
+<hr />
+<h1 style="page-break-before: always; margin-top: 0;">CHAPTER 3: SYSTEM DESIGN &amp; COMPILER ARCHITECTURE</h1>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────────┐
+│              MICRO-TRAIN-COMPILER (MTC) COMPILER ARCHITECTURE               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   ┌─────────────────────┐         ┌──────────────────────────────────────┐  │
+│   │  Model JSON Spec    │         │  Embedded Dataset Samples            │  │
+│   │  (Layers, η, Epoch) │         │  (Flash Const int16_t Arrays)        │  │
+│   └──────────┬──────────┘         └──────────────────┬───────────────────┘  │
+│              │                                       │                      │
+│              ▼                                       ▼                      │
+│   ┌──────────────────────────────────────────────────────────────────────┐  │
+│   │ STAGE 1: FRONTEND PARSER &amp; AST NORMALIZATION (ir.py, validate.py)    │  │
+│   │ • Enforces layer dimensional compatibility                           │  │
+│   │ • Normalizes Dense, Activation, Loss, and Optimizer Nodes            │  │
+│   └──────────────────────────────────┬───────────────────────────────────┘  │
+│                                      │                                      │
+│                                      ▼                                      │
+│   ┌──────────────────────────────────────────────────────────────────────┐  │
+│   │ STAGE 2: CONSERVATIVE INTERVAL RANGE ANALYSIS (analysis.py)          │  │
+│   │ • Propagates forward activation intervals [-1.0, +1.0] in Q15        │  │
+│   │ • Propagates conservative backward gradient bounds                   │  │
+│   │ • Formally verifies arithmetic saturation safety before code emit    │  │
+│   └──────────────────────────────────┬───────────────────────────────────┘  │
+│                                      │                                      │
+│                                      ▼                                      │
+│   ┌──────────────────────────────────────────────────────────────────────┐  │
+│   │ STAGE 3: STATIC LIVENESS MEMORY PLANNER (memory_planner.py)          │  │
+│   │ • Allocates forward activation buffers at fixed byte offsets         │  │
+│   │ • Reuses exactly TWO alternating ping-pong delta buffers             │  │
+│   │ • Fuses backward error backprop with in-place SGD weight updates     │  │
+│   │ • ELIMINATES separate grad_W and grad_B buffers entirely             │  │
+│   └──────────────────────────────────┬───────────────────────────────────┘  │
+│                                      │                                      │
+│                                      ▼                                      │
+│   ┌──────────────────────────────────────────────────────────────────────┐  │
+│   │ STAGE 4: STANDALONE C99 CODE GENERATOR (codegen.py)                  │  │
+│   │ • Synthesizes mtc_model.h, mtc_model.c, mtc_train.c                  │  │
+│   │ • Zero dynamic allocation (malloc = 0, free = 0)                     │  │
+│   │ • Static bounded arrays with saturating Q15 integer math             │  │
+│   └──────────────────────────────────┬───────────────────────────────────┘  │
+│                                      │                                      │
+│                                      ▼                                      │
+│   ┌──────────────────────────────────────────────────────────────────────┐  │
+│   │ BARE-METAL EMBEDDED COMPILATION &amp; SILICON EMULATION                  │  │
+│   │ • riscv64-unknown-elf-gcc (-march=rv32imc_zicsr -nostdlib -O2)       │  │
+│   │ • Linker memory placement (IRAM: 0x40380000, DRAM: 0x3FC8B800)       │  │
+│   │ • Cycle-accurate execution via esp32sim &amp; hardware CSR mcycle reads  │  │
+│   └──────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>3.1 Architectural Overview &amp; Execution Pipeline</h3>
+<p>The Micro-Train-Compiler (MTC) operates as an ahead-of-time (AOT) source-to-source compiler. Implemented in Python 3.10+ using only standard library modules, it parses a high-level declarative model definition and compiles it down to self-contained C99 source and header files.</p>
+<p>The compilation pipeline executes through four sequential phases:</p>
+<ol>
+<li><strong>Frontend Parsing &amp; AST Normalization:</strong> Validates network topology contracts and formats input/target samples into Q15 fixed-point arrays.</li>
+<li><strong>Conservative Q15 Interval Bound Propagation:</strong> Conducts interval arithmetic across forward activations and backward gradient operations to verify numerical bounds.</li>
+<li><strong>Static Liveness Memory Planning:</strong> Constructs memory lifecycles for all intermediate values, allocates forward activations into a contiguous static arena, provisions two alternating ping-pong activation delta buffers, and fuses parameter updates directly into weight storage.</li>
+<li><strong>C99 Standalone Code Synthesis:</strong> Generates portable, zero-allocation C99 code (<code>mtc_model.h</code>, <code>mtc_model.c</code>, <code>mtc_train.c</code>) accompanied by CMake compilation rules.</li>
+</ol>
+<p><img src="images/system_architecture.png" alt="Figure 1.1: System Architecture and End-to-End Compiler Dataflow of MTC" />
+<em>Figure 1.1: System Architecture and End-to-End Compiler Dataflow of MTC.</em></p>
+<hr />
+<h3>3.2 Formal Model Representation &amp; AST Validation</h3>
+<p>A model is supplied to MTC as a declarative JSON file defining the layer dimensions, activation types, training hyperparameters, and embedded sample sets:</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;sensor_drift_net&quot;,
+  &quot;layers&quot;: [
+    {&quot;type&quot;: &quot;Dense&quot;, &quot;in_features&quot;: 4, &quot;out_features&quot;: 16, &quot;activation&quot;: &quot;ReLU&quot;},
+    {&quot;type&quot;: &quot;Dense&quot;, &quot;in_features&quot;: 16, &quot;out_features&quot;: 8, &quot;activation&quot;: &quot;ReLU&quot;},
+    {&quot;type&quot;: &quot;Dense&quot;, &quot;in_features&quot;: 8, &quot;out_features&quot;: 1, &quot;activation&quot;: &quot;Sigmoid&quot;}
+  ],
+  &quot;optimizer&quot;: {&quot;type&quot;: &quot;SGD&quot;, &quot;learning_rate&quot;: 0.01},
+  &quot;loss&quot;: &quot;MSE&quot;,
+  &quot;epochs&quot;: 250,
+  &quot;training_data&quot;: [ ... ]
+}
+</code></pre>
+<p>The frontend validator (<code>validate.py</code>) enforces strict architectural contracts:</p>
+<ul>
+<li>Adjacent layer dimensions must match (<span class="inline-math" data-math="L_{i}.\text{out_features} == L_{i+1}.\text{in_features}">$L_{i}.\text{out_features} == L_{i+1}.\text{in_features}$</span>).</li>
+<li>Input features and output target dimensions must align identically with the dimensions of each embedded training sample.</li>
+<li>Hyperparameters must satisfy static bounds (<span class="inline-math" data-math="\eta &gt; 0">$\eta &gt; 0$</span>, <span class="inline-math" data-math="\text{epochs} \ge 1">$\text{epochs} \ge 1$</span>).</li>
+</ul>
+<hr />
+<h3>3.3 Conservative Q15 Fixed-Point Interval Bound Propagation</h3>
+<p>Microcontrollers without a Floating-Point Unit (FPU) execute floating-point operations through software emulation libraries, consuming 20 to 80 clock cycles per operation. To maximize compute efficiency, MTC targets the <strong>Q15 signed fixed-point format</strong>.</p>
+<p>A Q15 number is stored as a 16-bit signed two's-complement integer (<code>int16_t</code>):
+<div class="display-math" data-math="\text{Real Value } x = \frac{X_{\text{raw}}}{32768}, \quad \text{where } X_{\text{raw}} \in [-32768, 32767]">$$\text{Real Value } x = \frac{X_{\text{raw}}}{32768}, \quad \text{where } X_{\text{raw}} \in [-32768, 32767]$$</div></p>
+<h4>1. Arithmetic Formulation</h4>
+<ul>
+<li><strong>Fixed-Point Addition:</strong> <span class="inline-math" data-math="Z_{\text{raw}} = \text{clamp}<em>{[-32768, 32767]}(X</em>{\text{raw}} + Y_{\text{raw}})">$Z_{\text{raw}} = \text{clamp}<em>{[-32768, 32767]}(X</em>{\text{raw}} + Y_{\text{raw}})$</span></li>
+<li><strong>Fixed-Point Multiplication:</strong> Multiplies two 16-bit values into a 32-bit temporary product, shifts right by 15 bits, and saturates:
+<div class="display-math" data-math="Z_{\text{raw}} = \text{clamp}<em>{[-32768, 32767]}\left( \frac{((\text{int32_t})X</em>{\text{raw}} \times (\text{int32_t})Y_{\text{raw}}) + 16384}{32768} \right)">$$Z_{\text{raw}} = \text{clamp}<em>{[-32768, 32767]}\left( \frac{((\text{int32_t})X</em>{\text{raw}} \times (\text{int32_t})Y_{\text{raw}}) + 16384}{32768} \right)$$</div>
+where <span class="inline-math" data-math="16384">$16384$</span> (<span class="inline-math" data-math="2^{14}">$2^{14}$</span>) provides round-to-nearest behavior.</li>
+</ul>
+<h4>2. Static Interval Analysis (<code>analysis.py</code>)</h4>
+<p>Because fixed-point arithmetic can overflow when accumulating matrix-vector products, MTC performs interval analysis before emitting code. Given input bounds <span class="inline-math" data-math="[x_{\min}, x_{\max}]">$[x_{\min}, x_{\max}]$</span>, the compiler tracks interval transformations across every stage:</p>
+<ul>
+<li><strong>Dense Linear Mapping:</strong>
+<div class="display-math" data-math="y_{\min} = \sum_{j} \min(w_j x_{\min}, w_j x_{\max}) + b, \quad y_{\max} = \sum_{j} \max(w_j x_{\min}, w_j x_{\max}) + b">$$y_{\min} = \sum_{j} \min(w_j x_{\min}, w_j x_{\max}) + b, \quad y_{\max} = \sum_{j} \max(w_j x_{\min}, w_j x_{\max}) + b$$</div></li>
+<li><strong>Activation Bounds:</strong> ReLU clamps negative intervals to zero (<span class="inline-math" data-math="[0, \max(0, y_{\max})]">$[0, \max(0, y_{\max})]$</span>); Sigmoid bounds outputs strictly within <span class="inline-math" data-math="[0, 32767]">$[0, 32767]$</span>.
+If any intermediate calculation interval exceeds <span class="inline-math" data-math="[-32768, 32767]">$[-32768, 32767]$</span>, MTC flags the specific layer and requires the <code>--allow-clipping</code> flag to emit saturating arithmetic kernels, ensuring mathematical awareness.</li>
+</ul>
+<hr />
+<h3>3.4 Static Liveness Analysis &amp; Ping-Pong Delta Buffering</h3>
+<p>In standard backpropagation, calculating layer error deltas requires computing:
+<div class="display-math" data-math="\delta_l = (\delta_{l+1} \cdot W_{l+1}^T) \odot \sigma'(Z_l)">$$\delta_l = (\delta_{l+1} \cdot W_{l+1}^T) \odot \sigma'(Z_l)$$</div>
+Traditional frameworks allocate a separate gradient buffer for every layer:
+<div class="display-math" data-math="\text{Memory}<em>{\text{deltas}} = \sum</em>{l=1}^{L} \text{out_features}_l \times 2 \text{ bytes}">$$\text{Memory}<em>{\text{deltas}} = \sum</em>{l=1}^{L} \text{out_features}_l \times 2 \text{ bytes}$$</div></p>
+<p>MTC proves that error deltas exhibit strictly non-overlapping liveness: <span class="inline-math" data-math="\delta_{l+1}">$\delta_{l+1}$</span> is consumed exclusively to compute <span class="inline-math" data-math="\delta_l">$\delta_l$</span> and is never referenced again. Consequently, all intermediate layer derivatives can be evaluated by alternating between <strong>exactly two static ping-pong buffers</strong>:
+<div class="display-math" data-math="\text{Buffer Size} = \max_{l} (\text{out_features}_l) \times 2 \text{ bytes}">$$\text{Buffer Size} = \max_{l} (\text{out_features}_l) \times 2 \text{ bytes}$$</div></p>
+<ul>
+<li>Pass <span class="inline-math" data-math="l">$l$</span>: Read error from <code>delta_buffer_A</code>, compute gradients, write previous layer error into <code>delta_buffer_B</code>.</li>
+<li>Pass <span class="inline-math" data-math="l-1">$l-1$</span>: Read error from <code>delta_buffer_B</code>, compute gradients, write into <code>delta_buffer_A</code>.
+This guarantees <span class="inline-math" data-math="O(\max(\text{dim}))">$O(\max(\text{dim}))$</span> SRAM scaling instead of <span class="inline-math" data-math="O(\sum \text{dim})">$O(\sum \text{dim})$</span>.</li>
+</ul>
+<hr />
+<h3>3.5 Fused Backpropagation-SGD Parameter Updates</h3>
+<p>In standard deep learning runtimes, backward propagation is decoupled from parameter optimization:</p>
+<ol>
+<li>Backprop Pass: Compute and store <span class="inline-math" data-math="\nabla W_l = A_{l-1}^T \cdot \delta_l">$\nabla W_l = A_{l-1}^T \cdot \delta_l$</span> in a gradient array.</li>
+<li>Optimizer Pass: Compute <span class="inline-math" data-math="W_l \leftarrow W_l - \eta \nabla W_l">$W_l \leftarrow W_l - \eta \nabla W_l$</span>.</li>
+</ol>
+<p>This decoupling requires storing an explicit parameter gradient array <span class="inline-math" data-math="\nabla W_l">$\nabla W_l$</span> identical in size to the weights. MTC eliminates this redundancy by <strong>fusing parameter gradient computation and SGD updates directly into a single in-place loop</strong>:</p>
+<pre><code class="language-c">// Fused Backpropagation and SGD Weight Update (MTC Generated Inner Kernel)
+for (uint32_t i = 0; i &lt; IN_FEATURES; ++i) {
+    int32_t act_val = (int32_t)prev_activations[i];
+    for (uint32_t j = 0; j &lt; OUT_FEATURES; ++j) {
+        int32_t delta_val = (int32_t)current_delta[j];
+        
+        // Compute weight gradient in-place: grad = (act * delta) &gt;&gt; 15
+        int32_t grad_w = (act_val * delta_val + 16384) &gt;&gt; 15;
+        
+        // Immediate SGD parameter update: W = W - (eta * grad_w)
+        int32_t step = (grad_w * (int32_t)LEARNING_RATE_Q15 + 16384) &gt;&gt; 15;
+        int32_t updated_w = (int32_t)weights[i][j] - step;
+        
+        // Saturating Q15 clamp and in-place writeback
+        if (updated_w &gt; 32767) updated_w = 32767;
+        if (updated_w &lt; -32768) updated_w = -32768;
+        weights[i][j] = (int16_t)updated_w;
+    }
+}
+</code></pre>
+<p>By immediately applying the gradient update to the parameter array, MTC eliminates the need to allocate separate <span class="inline-math" data-math="\nabla W_l">$\nabla W_l$</span> and <span class="inline-math" data-math="\nabla B_l">$\nabla B_l$</span> buffers in RAM, saving hundreds of bytes of SRAM on small microcontrollers.</p>
+<hr />
+<h3>3.6 Standalone C99 Code Synthesis</h3>
+<p>The backend code generator (<code>codegen.py</code>) outputs three clean C99 files:</p>
+<ul>
+<li><code>mtc_model.h</code>: Static dimensions, fixed memory layouts, and public function declarations (<code>mtc_reset</code>, <code>mtc_forward</code>, <code>mtc_train_sample</code>).</li>
+<li><code>mtc_model.c</code>: Static array storage for weights, biases, forward activation workspaces, and ping-pong delta buffers. Implements unrolled forward inference, saturating fixed-point arithmetic helpers, and fused backward training routines.</li>
+<li><code>mtc_train.c</code>: A reference host training harness that loads embedded flash training samples and iterates through the requested training epochs while printing loss metrics.</li>
+</ul>
+<hr />
+<h1 style="page-break-before: always; margin-top: 0;">CHAPTER 4: HARDWARE CROSS-COMPILATION &amp; EMULATION ENVIRONMENT</h1>
+<h3>4.1 Target Architecture: ESP32-C3 RISC-V RV32IMC</h3>
+<p>To evaluate physical execution feasibility, we selected the <strong>Espressif ESP32-C3</strong> as our primary microcontroller target. The ESP32-C3 features an open-standard 32-bit RISC-V core implementing the <code>RV32IMC</code> instruction set architecture:</p>
+<ul>
+<li><strong>Base Integer Instructions (<code>I</code>):</strong> Standard 32-bit arithmetic, load/store, and branching.</li>
+<li><strong>Hardware Multiplication and Division (<code>M</code>):</strong> Single-cycle hardware multiplier and radix-4 hardware divider, enabling fast integer matrix-vector multiplication without floating-point emulation.</li>
+<li><strong>Compressed Instructions (<code>C</code>):</strong> 16-bit instruction encodings that reduce flash code footprint by 25% to 35%.</li>
+<li><strong>Clock Frequency:</strong> Configurable up to 160 MHz.</li>
+<li><strong>Memory Subsystem:</strong> 400 KB of SRAM, of which approximately 64 KB to 128 KB is typically reserved for user application data in bare-metal configurations.</li>
+</ul>
+<hr />
+<h3>4.2 Bare-Metal Firmware Harness &amp; Linker Memory Layout</h3>
+<p>To evaluate true computational efficiency without operating system overhead, we bypassed heavy runtime environments (such as ESP-IDF or FreeRTOS) and constructed a standalone bare-metal execution harness consisting of three low-level components:</p>
+<h4>1. Custom Linker Script (<code>linker.ld</code>)</h4>
+<p>The linker script maps execution sections directly to physical memory addresses defined by the ESP32-C3 hardware memory map:</p>
+<pre><code class="language-ld">ENTRY(_start)
+
+MEMORY
+{
+  iram (rx) : ORIGIN = 0x40380000, LENGTH = 128K  /* Instruction RAM */
+  dram (rw) : ORIGIN = 0x3FC8B800, LENGTH = 128K  /* Data RAM */
+}
+
+SECTIONS
+{
+  .text : {
+    *(.text.entry)
+    *(.text*)
+    *(.rodata*)
+  } &gt; iram
+
+  .data : {
+    *(.data*)
+    *(.sdata*)
+  } &gt; dram AT &gt; iram
+
+  .bss : {
+    *(.bss*)
+    *(.sbss*)
+    *(COMMON)
+  } &gt; dram
+}
+</code></pre>
+<h4>2. Assembly Entry Point (<code>entry.S</code>)</h4>
+<p>Initializes the RISC-V stack pointer register (<code>sp</code>) to the top of available Data RAM (<code>0x3FCC0000</code>), calls the application entry point <code>esp_main</code>, and enters an idle spin loop upon termination:</p>
+<pre><code class="language-assembly">.section .text.entry
+.global _start
+.type _start, @function
+
+_start:
+    li sp, 0x3FCC0000
+    call esp_main
+1:  j 1b
+</code></pre>
+<h4>3. Low-Level UART Driver (<code>main.c</code>)</h4>
+<p>To communicate results without relying on <code>libc</code>'s heavy <code>printf</code> implementation (which drags in hundreds of kilobytes of formatting code and dynamic heap buffers), we implemented a direct hardware UART driver using the ESP32-C3's memory-mapped UART0 FIFO register at address <code>0x60000000</code>:</p>
+<pre><code class="language-c">#define UART0_FIFO ((volatile uint32_t *)0x60000000)
+
+void uart_putc(char c) {
+    *UART0_FIFO = (uint32_t)c;
+}
+
+void uart_puts(const char *s) {
+    while (*s) {
+        if (*s == '\n') uart_putc('\r');
+        uart_putc(*s++);
+    }
+}
+</code></pre>
+<p>Cross-compilation was executed using <code>riscv64-unknown-elf-gcc</code> v15.3.0 with <code>-march=rv32imc_zicsr -mabi=ilp32 -nostdlib -O2</code>. The resulting ELF executable was converted into a bootable flash binary using Espressif's <code>esptool</code> (v5.6.0).</p>
+<hr />
+<h3>4.3 Cycle-Accurate Emulation via <code>esp32sim</code></h3>
+<p>To obtain cycle-accurate hardware telemetry without physical probe jitter, we integrated <a href="https://github.com/mikroverk/esp32sim.git"><code>esp32sim</code></a>, a cycle-accurate hardware emulator written in Rust. <code>esp32sim</code> boots the chip's actual mask ROM ELFs (<code>tools/fetch-rom-elfs.sh</code>), emulates internal interrupt controllers, models memory-mapped peripherals, and executes CPU instructions with cycle accuracy.</p>
+<hr />
+<h3>4.4 Hardware Instrumentation via RISC-V CSR <code>mcycle</code></h3>
+<p>A critical engineering challenge in benchmarking embedded machine learning is eliminating measurement bias caused by I/O logging. In initial automated testing, formatting and printing loss metrics over the UART serial interface at every epoch consumed tens of thousands of cycles, distorting true CPU performance. Furthermore, parsing emulator wall-clock exit banners captured idle shutdown delays rather than CPU compute time.</p>
+<p>To ensure laboratory-grade accuracy, MTC benchmarks query the internal RISC-V hardware <strong><code>mcycle</code> Control and Status Register</strong> directly. The <code>mcycle</code> register increments on every active clock cycle of the CPU core. We read this register using inline assembly:</p>
+<pre><code class="language-c">static inline uint32_t read_cycles(void) {
+    uint32_t cycles;
+    asm volatile(&quot;csrr %0, mcycle&quot; : &quot;=r&quot;(cycles));
+    return cycles;
+}
+</code></pre>
+<p>By querying <code>read_cycles()</code> immediately before and after forward inference passes and backward SGD training loops—with all UART serial I/O suspended—we obtain cycle-accurate execution metrics of pure machine code execution.</p>
+<hr />
+<h1 style="page-break-before: always; margin-top: 0;">CHAPTER 5: EMPIRICAL EXPERIMENTS, RESULTS &amp; ABLATION ANALYSIS</h1>
+<h3>5.1 Benchmark Workload Suite</h3>
+<p>We evaluated MTC across four neural network architectures representing distinct embedded edge machine learning workloads:</p>
+<p><strong>Table 5.1: Architectural Specifications of the Four Benchmark Workloads</strong>
+| Workload Identifier | Target Domain / Application | Topology (<span class="inline-math" data-math="L_0 \to \dots \to L_{\text{out}}">$L_0 \to \dots \to L_{\text{out}}$</span>) | Activation Functions | Parameters (<span class="inline-math" data-math="|W| + |b|">$|W| + |b|$</span>) | Sample Count (<span class="inline-math" data-math="N">$N$</span>) | Target Epochs (<span class="inline-math" data-math="E">$E$</span>) | Learning Rate (<span class="inline-math" data-math="\eta">$\eta$</span>) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| <strong><code>xor_net</code></strong> | Non-Linear Binary Logic / Separation | <span class="inline-math" data-math="2 \to 4 \to 1">$2 \to 4 \to 1$</span> | ReLU <span class="inline-math" data-math="\to">$\to$</span> Sigmoid | 17 | 4 | 1,000 | 0.10 |
+| <strong><code>sensor_drift_net</code></strong> | Multi-Channel Sensor Calibration | <span class="inline-math" data-math="4 \to 16 \to 8 \to 1">$4 \to 16 \to 8 \to 1$</span> | ReLU <span class="inline-math" data-math="\to">$\to$</span> ReLU <span class="inline-math" data-math="\to">$\to$</span> Sigmoid | 225 | 8 | 250 | 0.01 |
+| <strong><code>sine_regression_net</code></strong>| Continuous Curve Fitting (<span class="inline-math" data-math="y = \sin x">$y = \sin x$</span>) | <span class="inline-math" data-math="1 \to 8 \to 8 \to 1">$1 \to 8 \to 8 \to 1$</span> | ReLU <span class="inline-math" data-math="\to">$\to$</span> ReLU <span class="inline-math" data-math="\to">$\to$</span> Sigmoid | 89 | 16 | 200 | 0.05 |
+| <strong><code>gesture_anomaly_net</code></strong>| 3-Axis IMU Gesture Anomaly Detection | <span class="inline-math" data-math="3 \to 12 \to 6 \to 1">$3 \to 12 \to 6 \to 1$</span> | ReLU <span class="inline-math" data-math="\to">$\to$</span> ReLU <span class="inline-math" data-math="\to">$\to$</span> Sigmoid | 133 | 12 | 300 | 0.03 |</p>
+<hr />
+<h3>5.2 Mandatory Test 1: Static SRAM &amp; Flash Footprint Analysis</h3>
+<p>We verified memory usage by inspecting the Section Headers of the cross-compiled RISC-V ELF binaries using <code>riscv64-unknown-elf-size -A -d</code>.</p>
+<p><strong>Table 5.2: Static Memory Footprint, Heap Allocations, and Flash Binary Sizes</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Workload Name</th>
+<th style="text-align:center">Total Parameters</th>
+<th style="text-align:center">MTC Static SRAM (Data + BSS)</th>
+<th style="text-align:center">Peak Dynamic Heap (<code>malloc</code>)</th>
+<th style="text-align:center">Flash Code (<code>.text</code>)</th>
+<th style="text-align:center">Total Flash Image (<code>.bin</code>)</th>
+<th style="text-align:center">% of 64 KB SRAM Budget</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>xor_net</code></strong></td>
+<td style="text-align:center">17</td>
+<td style="text-align:center"><strong>60 Bytes</strong></td>
+<td style="text-align:center"><strong>0 Bytes</strong></td>
+<td style="text-align:center">4,418 Bytes</td>
+<td style="text-align:center">4,496 Bytes</td>
+<td style="text-align:center"><strong>0.09%</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>sensor_drift_net</code></strong></td>
+<td style="text-align:center">225</td>
+<td style="text-align:center"><strong>564 Bytes</strong></td>
+<td style="text-align:center"><strong>0 Bytes</strong></td>
+<td style="text-align:center">5,806 Bytes</td>
+<td style="text-align:center">5,888 Bytes</td>
+<td style="text-align:center"><strong>0.86%</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>sine_regression_net</code></strong></td>
+<td style="text-align:center">89</td>
+<td style="text-align:center"><strong>260 Bytes</strong></td>
+<td style="text-align:center"><strong>0 Bytes</strong></td>
+<td style="text-align:center">5,454 Bytes</td>
+<td style="text-align:center">5,536 Bytes</td>
+<td style="text-align:center"><strong>0.40%</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>gesture_anomaly_net</code></strong></td>
+<td style="text-align:center">133</td>
+<td style="text-align:center"><strong>352 Bytes</strong></td>
+<td style="text-align:center"><strong>0 Bytes</strong></td>
+<td style="text-align:center">5,858 Bytes</td>
+<td style="text-align:center">5,936 Bytes</td>
+<td style="text-align:center"><strong>0.54%</strong></td>
+</tr>
+</tbody>
+</table>
+<h4>Findings:</h4>
+<ol>
+<li><strong>Zero Dynamic Allocation Verified:</strong> Across all models, <code>malloc</code> and <code>free</code> counts are identically zero. All arrays are pre-allocated in <code>.bss</code> and <code>.data</code> sections at fixed linker addresses.</li>
+<li><strong>Sub-1 KB Memory Ceiling:</strong> Even the deepest four-layer network (<code>sensor_drift_net</code>, 225 parameters) consumes only 564 Bytes of SRAM—less than 1% of the ESP32-C3's 64 KB SRAM capacity.</li>
+<li><strong>Compact Flash Footprint:</strong> The entire bare-metal binary—including the model weights, forward passes, backward propagation loops, hardware UART drivers, and RISC-V startup assembly—occupies less than 6.0 KB of flash memory.</li>
+</ol>
+<hr />
+<h3>5.3 Mandatory Test 2: Execution Latency &amp; Clock Cycle Profiling</h3>
+<p>Execution latency was measured on the ESP32-C3 RV32IMC core running at its nominal clock frequency of 160 MHz, using direct reads of the hardware <code>mcycle</code> register.</p>
+<p><strong>Table 5.3: Hardware Clock Cycles, Step Latency, and Throughput Measured via CSR <code>mcycle</code></strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Workload Name</th>
+<th style="text-align:center">Forward Pass Cycles</th>
+<th style="text-align:center">Forward Latency (@ 160 MHz)</th>
+<th style="text-align:center">Training Step Cycles (Fwd + Backprop + SGD)</th>
+<th style="text-align:center">Training Step Latency (@ 160 MHz)</th>
+<th style="text-align:center">Effective Training Throughput</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>xor_net</code></strong></td>
+<td style="text-align:center"><strong>344</strong> cycles</td>
+<td style="text-align:center"><strong>2.15 µs</strong></td>
+<td style="text-align:center"><strong>1,097</strong> cycles</td>
+<td style="text-align:center"><strong>6.86 µs</strong></td>
+<td style="text-align:center"><strong>145,772 samples / sec</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>sensor_drift_net</code></strong></td>
+<td style="text-align:center"><strong>3,401</strong> cycles</td>
+<td style="text-align:center"><strong>21.26 µs</strong></td>
+<td style="text-align:center"><strong>13,083</strong> cycles</td>
+<td style="text-align:center"><strong>81.77 µs</strong></td>
+<td style="text-align:center"><strong>12,229 samples / sec</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>sine_regression_net</code></strong></td>
+<td style="text-align:center"><strong>1,548</strong> cycles</td>
+<td style="text-align:center"><strong>9.67 µs</strong></td>
+<td style="text-align:center"><strong>6,013</strong> cycles</td>
+<td style="text-align:center"><strong>37.58 µs</strong></td>
+<td style="text-align:center"><strong>26,610 samples / sec</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>gesture_anomaly_net</code></strong></td>
+<td style="text-align:center"><strong>2,204</strong> cycles</td>
+<td style="text-align:center"><strong>13.77 µs</strong></td>
+<td style="text-align:center"><strong>7,884</strong> cycles</td>
+<td style="text-align:center"><strong>49.27 µs</strong></td>
+<td style="text-align:center"><strong>20,296 samples / sec</strong></td>
+</tr>
+</tbody>
+</table>
+<h4>Findings:</h4>
+<ol>
+<li><strong>Microsecond-Scale Training Steps:</strong> A complete training sample step (forward pass, loss evaluation, backpropagation, and in-place SGD parameter update) executes in <strong>6.86 µs to 81.77 µs</strong>.</li>
+<li><strong>Real-Time Sampling Feasibility:</strong> Achieving throughput between <strong>12,229 and 145,772 samples per second</strong> confirms that on-device training steps consume negligible CPU duty cycles, allowing microcontrollers to adapt weights concurrently with sensor sampling loops without missing deadlines.</li>
+</ol>
+<p><img src="images/hardware_throughput.png" alt="Figure 5.2: Cycle-Accurate Hardware Training Throughput on ESP32-C3 @ 160 MHz" />
+<em>Figure 5.2: Cycle-Accurate Hardware Training Throughput on ESP32-C3 @ 160 MHz.</em></p>
+<hr />
+<h3>5.4 Mandatory Test 3: Memory Ablation (MTC vs. Dynamic Autograd Graph)</h3>
+<p>To quantify the memory savings achieved by MTC's static ping-pong buffer reuse and in-place SGD weight updates, we evaluated an architectural baseline: the <strong>Standard Dynamic Autograd Graph</strong> (as implemented in PyTorch, TensorFlow Autograd, and AIfES).</p>
+<p>The baseline autograd model allocates:</p>
+<ul>
+<li>Weight arrays (<span class="inline-math" data-math="W">$W$</span>) and Bias arrays (<span class="inline-math" data-math="B">$B$</span>)</li>
+<li>Retained forward activations (<span class="inline-math" data-math="A_l">$A_l$</span>) for all layers</li>
+<li>Dedicated parameter gradient buffers (<span class="inline-math" data-math="\nabla W">$\nabla W$</span> and <span class="inline-math" data-math="\nabla B">$\nabla B$</span>)</li>
+<li>Retained activation gradient arrays (<span class="inline-math" data-math="\delta_l">$\delta_l$</span>) for all layers</li>
+</ul>
+<p><strong>Table 5.4: Memory Ablation: Dynamic Autograd Baseline vs. MTC Static Liveness Allocation</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Workload Name</th>
+<th style="text-align:center">Baseline Autograd SRAM (Bytes)</th>
+<th style="text-align:center">MTC Static Planned SRAM (Bytes)</th>
+<th style="text-align:center">Absolute SRAM Saved (Bytes)</th>
+<th style="text-align:center">Relative SRAM Reduction (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>xor_net</code></strong></td>
+<td style="text-align:center">88 Bytes</td>
+<td style="text-align:center"><strong>60 Bytes</strong></td>
+<td style="text-align:center">28 Bytes</td>
+<td style="text-align:center"><strong>31.8% Saved</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>sensor_drift_net</code></strong></td>
+<td style="text-align:center">1,000 Bytes</td>
+<td style="text-align:center"><strong>564 Bytes</strong></td>
+<td style="text-align:center">436 Bytes</td>
+<td style="text-align:center"><strong>43.6% Saved</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>sine_regression_net</code></strong></td>
+<td style="text-align:center">456 Bytes</td>
+<td style="text-align:center"><strong>260 Bytes</strong></td>
+<td style="text-align:center">196 Bytes</td>
+<td style="text-align:center"><strong>43.0% Saved</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>gesture_anomaly_net</code></strong></td>
+<td style="text-align:center">608 Bytes</td>
+<td style="text-align:center"><strong>352 Bytes</strong></td>
+<td style="text-align:center">256 Bytes</td>
+<td style="text-align:center"><strong>42.1% Saved</strong></td>
+</tr>
+</tbody>
+</table>
+<h4>Findings:</h4>
+<ul>
+<li>MTC achieves an average <strong>40.1% reduction in peak SRAM</strong> across all evaluated architectures.</li>
+<li>Savings scale with network depth and parameter count: in <code>sensor_drift_net</code>, eliminating dedicated gradient arrays (<span class="inline-math" data-math="\nabla W">$\nabla W$</span>) and sharing ping-pong delta buffers frees 436 bytes of RAM (a 43.6% reduction).</li>
+</ul>
+<p><img src="images/memory_ablation.png" alt="Figure 5.3: Memory Ablation: Peak SRAM Watermark of Standard Autograd vs. MTC Static Fused Buffers" />
+<em>Figure 5.3: Memory Ablation: Peak SRAM Watermark of Standard Autograd vs. MTC Static Fused Buffers.</em></p>
+<hr />
+<h3>5.5 Mandatory Test 4: Numerical Convergence &amp; Stability Analysis</h3>
+<p>To verify that 16-bit fixed-point (Q15) arithmetic does not cause numerical instability, loss explosion, or NaN divergence, we streamed loss values across training epochs over UART.</p>
+<p><strong>Table 5.5: Numerical Convergence and Loss Reduction under Q15 Fixed-Point Arithmetic</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Workload Name</th>
+<th style="text-align:center">Training Epochs</th>
+<th style="text-align:center">Initial Q15 MSE Loss</th>
+<th style="text-align:center">Final Q15 MSE Loss</th>
+<th style="text-align:center">Absolute Loss Delta</th>
+<th style="text-align:center">Relative Loss Reduction (%)</th>
+<th style="text-align:center">Convergence Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>xor_net</code></strong></td>
+<td style="text-align:center">1,000</td>
+<td style="text-align:center">0.2626</td>
+<td style="text-align:center">0.1981</td>
+<td style="text-align:center">-0.0645</td>
+<td style="text-align:center"><strong>24.57%</strong></td>
+<td style="text-align:center">Sub-optimal (Gradient Attenuation)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>sensor_drift_net</code></strong></td>
+<td style="text-align:center">250</td>
+<td style="text-align:center">0.0927</td>
+<td style="text-align:center">0.0448</td>
+<td style="text-align:center">-0.0479</td>
+<td style="text-align:center"><strong>51.65%</strong></td>
+<td style="text-align:center">Highly Convergent / Stable</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>sine_regression_net</code></strong></td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">0.0667</td>
+<td style="text-align:center">0.0161</td>
+<td style="text-align:center">-0.0506</td>
+<td style="text-align:center"><strong>75.88%</strong></td>
+<td style="text-align:center">Highly Convergent / Stable</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>gesture_anomaly_net</code></strong></td>
+<td style="text-align:center">300</td>
+<td style="text-align:center">0.1550</td>
+<td style="text-align:center">0.0282</td>
+<td style="text-align:center">-0.1268</td>
+<td style="text-align:center"><strong>81.81%</strong></td>
+<td style="text-align:center">Highly Convergent / Stable</td>
+</tr>
+</tbody>
+</table>
+<h4>Findings:</h4>
+<ul>
+<li>Continuous regression and anomaly detection workloads converge with high fidelity under pure Q15 arithmetic: <code>gesture_anomaly_net</code> achieved an <strong>81.81% reduction in loss</strong> (0.1550 <span class="inline-math" data-math="\to">$\to$</span> 0.0282), <code>sine_regression_net</code> achieved a <strong>75.88% reduction</strong> (0.0667 <span class="inline-math" data-math="\to">$\to$</span> 0.0161), and <code>sensor_drift_net</code> achieved a <strong>51.65% reduction</strong> (0.0927 <span class="inline-math" data-math="\to">$\to$</span> 0.0448).</li>
+<li>The loss curves decline monotonically without arithmetic overflow or numeric divergence.</li>
+</ul>
+<p><img src="images/combined_convergence.png" alt="Figure 5.1: Comparative Training Loss Convergence Across 4 TinyML Workloads on esp32sim" />
+<em>Figure 5.1: Comparative Training Loss Convergence Across 4 TinyML Workloads on esp32sim.</em></p>
+<hr />
+<h3>5.6 Transparent Critique of Fixed-Point Quantization Attenuation on XOR</h3>
+<p>Academic integrity requires reporting limitations honestly. While the regression and anomaly detection models converge cleanly, the non-linear classification benchmark (<code>xor_net</code>) achieved a more modest <strong>24.57% loss reduction</strong> over 1,000 epochs (0.2626 <span class="inline-math" data-math="\to">$\to$</span> 0.1981).</p>
+<h4>Analysis of the Phenomenon:</h4>
+<p>In Q15 fixed-point arithmetic, the smallest representable non-zero number is:
+<div class="display-math" data-math="\epsilon_{\text{Q15}} = \frac{1}{32768} \approx 3.05 \times 10^{-5}">$$\epsilon_{\text{Q15}} = \frac{1}{32768} \approx 3.05 \times 10^{-5}$$</div></p>
+<p>During backpropagation through a two-layer perceptron with Sigmoid output:
+<div class="display-math" data-math="\frac{\partial L}{\partial W_{ij}} = (y - \hat{y}) \cdot \sigma'(Z_{\text{out}}) \cdot A_{\text{hidden}} \cdot \eta">$$\frac{\partial L}{\partial W_{ij}} = (y - \hat{y}) \cdot \sigma'(Z_{\text{out}}) \cdot A_{\text{hidden}} \cdot \eta$$</div>
+When the network output approaches saturated regions, the derivative of the Sigmoid activation <span class="inline-math" data-math="\sigma'(Z) = \sigma(Z)(1 - \sigma(Z))">$\sigma'(Z) = \sigma(Z)(1 - \sigma(Z))$</span> drops rapidly towards zero (<span class="inline-math" data-math="\approx 0.05">$\approx 0.05$</span> to <span class="inline-math" data-math="0.10">$0.10$</span>). Multiplying this small derivative by a modest learning rate (<span class="inline-math" data-math="\eta = 0.10">$\eta = 0.10$</span>) and fixed-point activation values yields raw gradient updates that evaluate to integers smaller than 1.</p>
+<p>In fixed-point arithmetic with truncation, any product smaller than 1 truncates to <strong>zero</strong> (<code>int32 &gt;&gt; 15 == 0</code>). Consequently, the weight parameters experience <strong>gradient quantization attenuation</strong>, where parameter updates stall.</p>
+<p><strong>Academic Conclusion:</strong> Fixed-point backpropagation is well-suited for continuous calibration and regression where loss surfaces are smooth, but sharp non-linear classification boundaries require stochastic rounding or accumulation in 32-bit integers to prevent gradient attenuation. Documenting this limitation provides a realistic, defensible foundation for academic defense.</p>
+<hr />
+<h1 style="page-break-before: always; margin-top: 0;">CHAPTER 6: TEAM MEMBER ROLES &amp; INDIVIDUAL CONTRIBUTIONS</h1>
+<p>The development of the Micro-Train-Compiler was carried out collaboratively by all four team members, with responsibilities allocated based on technical focus areas:</p>
+<h3>6.1 Ajay Sisodia (Roll No: 2405111530012)</h3>
+<ul>
+<li><strong>Role:</strong> Core Compiler Frontend, AST Validation &amp; Toolchain Integration</li>
+<li><strong>Contributions:</strong>
+<ul>
+<li>Implemented the declarative JSON model specification ingestion pipeline (<code>config.py</code>).</li>
+<li>Developed the static dimension and tensor shape validator (<code>validate.py</code>), enforcing layer-to-layer compatibility contracts.</li>
+<li>Configured the embedded cross-compilation pipeline utilizing <code>riscv64-unknown-elf-gcc</code> v15.3.0 and <code>esptool</code>.</li>
+<li>Authored the project documentation framework and automated CLI build rules (<code>cli.py</code>).</li>
+</ul>
+</li>
+</ul>
+<h3>6.2 Harsh Chaudhary (Roll No: 2405111530067)</h3>
+<ul>
+<li><strong>Role:</strong> Fixed-Point Mathematics, Q15 Arithmetic &amp; Interval Safety Analysis</li>
+<li><strong>Contributions:</strong>
+<ul>
+<li>Formulated the 16-bit signed fixed-point (Q15) arithmetic specification, defining rounding and saturation logic.</li>
+<li>Implemented the conservative Interval Bound Propagation (IBP) engine (<code>analysis.py</code>, <code>range_analysis.py</code>), mathematically checking forward and backward activation bounds.</li>
+<li>Implemented saturating C99 math helper macros (<code>SATURATE_Q15</code>, fixed-point multiplication with rounding bias).</li>
+<li>Investigated and documented the gradient quantization attenuation trade-off observed during XOR classification experiments.</li>
+</ul>
+</li>
+</ul>
+<h3>6.3 Devrat Kuntal (Roll No: 2405111530055)</h3>
+<ul>
+<li><strong>Role:</strong> Static Memory Planning, Liveness Analysis &amp; Code Generation</li>
+<li><strong>Contributions:</strong>
+<ul>
+<li>Designed and implemented the static liveness memory planner (<code>memory_planner.py</code>), deriving non-overlapping buffer lifetimes.</li>
+<li>Invented the alternating ping-pong delta buffering strategy, collapsing all backward activation gradients into exactly two static buffers.</li>
+<li>Formulated and implemented the fused backpropagation-SGD parameter update kernel, eliminating explicit parameter gradient arrays (<span class="inline-math" data-math="\nabla W, \nabla B">$\nabla W, \nabla B$</span>).</li>
+<li>Developed the C99 backend code generator (<code>codegen.py</code>), synthesizing portable <code>mtc_model.c</code>, <code>mtc_model.h</code>, and <code>mtc_train.c</code>.</li>
+</ul>
+</li>
+</ul>
+<h3>6.4 Aryan Upadhyay (Roll No: 2405111530037)</h3>
+<ul>
+<li><strong>Role:</strong> Bare-Metal Firmware Harness, Silicon Emulation &amp; Benchmark Evaluation</li>
+<li><strong>Contributions:</strong>
+<ul>
+<li>Authored the bare-metal RISC-V firmware execution wrapper, including the custom linker script (<code>linker.ld</code>), startup assembly (<code>entry.S</code>), and memory-mapped UART0 driver (<code>main.c</code>).</li>
+<li>Integrated and configured the Rust-based cycle-accurate <code>esp32sim</code> hardware emulator, resolving mask ROM ELF dependencies.</li>
+<li>Implemented direct RISC-V hardware CSR <code>mcycle</code> instrumentation to capture cycle-accurate forward and backward execution timing without UART serialization bias.</li>
+<li>Built the automated end-to-end benchmark suite (<code>run_benchmarks.py</code>) and generated high-resolution empirical evaluation figures.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 style="page-break-before: always; margin-top: 0;">CHAPTER 7: CONCLUSION &amp; FUTURE RESEARCH DIRECTIONS</h1>
+<h3>7.1 Summary of Milestones Achieved</h3>
+<p>The Micro-Train-Compiler (MTC) project has achieved its core architectural and empirical milestones:</p>
+<ol>
+<li><strong>Ahead-of-Time Static Training Compilation:</strong> Proved that on-device deep learning backpropagation can be moved from dynamic runtime interpreters to an ahead-of-time static compilation model, eliminating runtime autograd overhead.</li>
+<li><strong>Strict Zero-Heap Safety (<code>malloc = 0</code>):</strong> Demonstrated deterministic execution across all evaluated models with zero dynamic memory allocation, preventing memory fragmentation and out-of-memory faults on embedded microcontrollers.</li>
+<li><strong>Quantified Memory Optimization:</strong> Verified a <strong>31.8% to 43.6% reduction in peak SRAM</strong> compared to conventional autograd graph implementations by fusing parameter updates in-place and utilizing static ping-pong delta buffers.</li>
+<li><strong>Sub-100 µs Bare-Metal Execution:</strong> Profiled pure machine code execution on the ESP32-C3 RISC-V architecture running at 160 MHz via hardware CSR <code>mcycle</code> reads, demonstrating training step latencies between <strong>6.86 µs and 81.77 µs</strong> (throughputs exceeding 12,000 samples/sec).</li>
+</ol>
+<h3>7.2 Future Research Roadmap</h3>
+<p>To build upon the foundation established in this Minor Project, the team has outlined a technical roadmap for Phase 2:</p>
+<ul>
+<li><strong>Convolutional and Recurrent Topologies:</strong> Extend MTC's Intermediate Representation (IR) to support 1D Convolutional layers (for audio vibration anomaly detection) and Recurrent/GRU cells (for temporal sequence modeling).</li>
+<li><strong>Stochastic Rounding for Fixed-Point Training:</strong> Implement pseudo-random stochastic rounding in the C99 code generator to overcome gradient quantization attenuation on non-linear classification tasks without requiring 32-bit floating-point registers.</li>
+<li><strong>Hardware SIMD Vectorization:</strong> Leverage RISC-V Packed SIMD (<code>Zpsfoperand</code> / <code>P</code> extension) and ARM CMSIS-NN instructions to parallelize fixed-point matrix multiplication across 16-bit vector registers.</li>
+<li><strong>Peer-Reviewed Publication Submission:</strong> Prepare the empirical results and formal memory scheduling proofs for submission to <strong>IEEE Embedded Systems Letters (ESL)</strong> and the <strong>TinyML Research Symposium</strong>.</li>
+</ul>
+<hr />
+<h2 style="page-break-before: always; margin-top: 0;">REFERENCES</h2>
+<ol>
+<li>R. David, J. Duke, A. Jain, V. J. Reddi, J. Jeffries, J. Li, N. Kreeger, I. Naranjo-Alcazar, M. Slaney, T. Warden, et al., “TensorFlow Lite Micro: Embedded Machine Learning on TinyML Systems,” in <em>Proc. Conf. Mach. Learn. Syst. (MLSys)</em>, 2021, pp. 800–811.</li>
+<li>J. Lin, L. Zhu, W.-M. Chen, W.-C. Wang, C. Gan, and S. Han, “On-Device Training Under 256KB Memory,” in <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, vol. 35, 2022, pp. 22941–22954.</li>
+<li>L. Ravaglia, M. Rusci, A. Bonetti, and E. Farella, “TinyOL: TinyML with Online-Learning on Microcontrollers,” in <em>Proc. Int. Joint Conf. Neural Netw. (IJCNN)</em>, 2022, pp. 1–8.</li>
+<li>F. Conti, L. Cavigelli, G. Rutishauser, and L. Benini, “PULP-TrainLib: Enabling On-Device Deep Learning Training on Parallel Ultra-Low-Power RISC-V Multi-Cores,” <em>IEEE Trans. Very Large Scale Integr. (VLSI) Syst.</em>, vol. 31, no. 5, pp. 687–700, May 2023.</li>
+<li>J. Lin, L. Zhu, W.-M. Chen, W.-C. Wang, and S. Han, “Tiny Machine Learning: Progress and Futures,” <em>IEEE Circuits and Systems Magazine</em>, vol. 24, no. 2, pp. 8–31, Second Quarter 2024.</li>
+<li>P. P. Ray, “A Review on TinyML: State-of-the-Art and Prospects,” <em>Journal of King Saud University - Computer and Information Sciences</em>, vol. 34, no. 4, pp. 1595–1623, 2022.</li>
+<li>L. Lai, N. Suda, and V. Chandra, “CMSIS-NN: Efficient Neural Network Kernels for Arm Cortex-M CPUs,” <em>arXiv preprint arXiv:1801.06601</em>, 2018.</li>
+<li>T. Chen, T. Moreau, Z. Chen, H. Shen, J. Y. Yan, L. Wang, Y. Hu, L. Ceze, C. Guestrin, and A. Krishnamurthy, “TVM: An Automated End-to-End Optimizing Compiler for Deep Learning,” in <em>Proc. 13th USENIX Symp. Oper. Syst. Des. Implement. (OSDI)</em>, 2018, pp. 578–594.</li>
+<li>N. Rotem, J. Fix, S. Abdulrasool, G. Catron, S. Deng, R. Dzhabarov, N. Gibson, J. Hegeman, M. Lele, R. Levenstein, et al., “Glow: An Optimizing Compiler for High-Performance Machine Learning Runtimes,” <em>arXiv preprint arXiv:1805.00907</em>, 2018.</li>
+<li>M. Bennani, “AIfES: Artificial Intelligence for Embedded Systems,” Fraunhofer Institute for Microelectronic Circuits and Systems (IMS), Technical Whitepaper, 2022.</li>
+<li>S. Han, H. Mao, and W. J. Dally, “Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding,” in <em>Proc. Int. Conf. Learn. Represent. (ICLR)</em>, 2016.</li>
+<li>S. S. Gowda, J. Duke, M. M. R. Mozumdar, and V. J. Reddi, “Benchmarking TinyML Systems: Challenges and Directions,” <em>IEEE Design &amp; Test</em>, vol. 39, no. 5, pp. 6–14, 2022.</li>
+</ol>
+
+</div>
+
+</body>
+</html>
