@@ -25,49 +25,6 @@ G. L. Bajaj Group of Institutions, Mathura
 
 ---
 
-## CERTIFICATE OF APPROVAL
-
-This is to certify that the project entitled **"Micro-Train-Compiler (MTC): An Ahead-of-Time Static Compiler for Zero-Heap On-Device Neural Network Training on 32-Bit Microcontrollers"**, submitted by **Ajay Sisodia (2405111530012)**, **Harsh Chaudhary (2405111530067)**, **Devrat Kuntal (2405111530055)**, and **Aryan Upadhyay (2405111530037)** in partial fulfillment of the requirements for the award of the degree of **Bachelor of Technology in Computer Science & Engineering** from **G. L. Bajaj Group of Institutions, Mathura**, is an authentic record of bonafide work carried out under my supervision and guidance during the academic session 2026–2027.
-
-To the best of my knowledge, the matter embodied in this report has not been submitted to any other University or Institute for the award of any degree or diploma.
-
-\
-\
-__________________________  
-**Ms. Gaurisha Sisodia**  
-Project Supervisor  
-Assistant Professor, Department of CSE  
-G. L. Bajaj Group of Institutions, Mathura  
-
-\
-\
-__________________________  
-**Head of Department**  
-Department of Computer Science & Engineering  
-G. L. Bajaj Group of Institutions, Mathura  
-
----
-
-## CANDIDATE'S DECLARATION
-
-We hereby declare that the work presented in this project report entitled **"Micro-Train-Compiler (MTC)"** is an authentic record of our own research and engineering work conducted under the guidance of **Ms. Gaurisha Sisodia**, Assistant Professor, Department of Computer Science & Engineering, G. L. Bajaj Group of Institutions, Mathura.
-
-We confirm that:
-1. This submission represents our original work, and all sources of literature, datasets, and baseline libraries have been properly cited and acknowledged in the references.
-2. The implementation, compiler logic, static memory planning algorithms, and cross-compilation harnesses presented herein were created by our team.
-3. All empirical benchmarks and cycle-accurate measurements were collected on bare-metal RISC-V hardware emulation and reflect real execution data without synthetic inflation or falsification.
-4. Neither this project nor any significant part of it has been previously submitted for any degree, diploma, or qualification at this or any other educational institution.
-
-**Dated:** 30 October 2026  
-**Place:** Mathura, Uttar Pradesh  
-
-1. **Ajay Sisodia** (Roll No: 2405111530012)
-2. **Harsh Chaudhary** (Roll No: 2405111530067)
-3. **Devrat Kuntal** (Roll No: 2405111530055)
-4. **Aryan Upadhyay** (Roll No: 2405111530037)
-
----
-
 ## ACKNOWLEDGEMENTS
 
 We express our profound gratitude to our project guide, **Ms. Gaurisha Sisodia**, Assistant Professor in the Department of Computer Science & Engineering, for her continuous intellectual guidance, constructive technical critiques, and encouragement throughout the design and realization of the Micro-Train-Compiler. Her insights regarding compiler modularity and embedded system constraints were instrumental in keeping our focus centered on physical memory limits.
