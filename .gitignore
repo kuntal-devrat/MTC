@@ -49,6 +49,10 @@ mtc_esp32sim_run/
 validation/esp32sim_convergence.png
 validation/xor_loss_curve.png
 
+# Tools & external checkouts
+tools/
+/tools/
+
 # IDE & editors
 .vscode/
 .idea/
