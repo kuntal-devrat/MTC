@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.12)
+project(mtc_generated C)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+add_executable(mtc_train mtc_model.c mtc_train.c)
+target_compile_options(mtc_train PRIVATE -Wall -Wextra -Werror)
