@@ -53,6 +53,16 @@ validation/xor_loss_curve.png
 tools/
 /tools/
 
+# LaTeX build artifacts
+*.aux
+*.lof
+*.lot
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
 # IDE & editors
 .vscode/
 .idea/

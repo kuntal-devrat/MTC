@@ -131,33 +131,18 @@ $$M_{\delta} = 2 \times \max_{l \in \{1, \dots, L\}} (d_l) \times \text{sizeof}(
 
 For example, in a 4-layer network with layer widths $[4, 16, 8, 1]$, the naive approach would allocate $(4 + 16 + 8 + 1) = 29$ elements. MTC's ping-pong allocation allocates only $2 \times 16 = 32$ elements, while completely decoupling scratchpad memory from network depth. Combined with the elimination of parameter gradient buffers, MTC achieves a minimal static memory watermark.
 
+![Fig. 2: Memory architecture comparison: Dynamic Autograd Graph (left) vs. MTC Static Liveness Allocation with Ping-Pong Buffers and In-Place SGD (right)](images/ping_pong_fused_liveness.png)
+*Fig. 2: Memory architecture comparison: Dynamic Autograd Graph (left) vs. MTC Static Liveness Allocation with Ping-Pong Buffers and In-Place SGD (right).*
+
 ---
 
 ## IV. COMPILER ARCHITECTURE & NUMERICAL SAFETY
 
-MTC is implemented as an ahead-of-time compiler consisting of four pipeline stages.
-
-```
-+-----------------------------------------------------------------------------+
-|                          COMPILER STAGE DETAILS                             |
-|                                                                             |
-| Stage 1: AST Normalization                                                  |
-|   Inputs: JSON topology, dataset vectors                                    |
-|   Outputs: Normalized IR nodes, validated layer contracts                   |
-|                                                                             |
-| Stage 2: Interval Bound Propagation (IBP)                                   |
-|   Inputs: Input domain [-1.0, +1.0], weight intervals                       |
-|   Outputs: Certified safe bounds per node; flags arithmetic saturation      |
-|                                                                             |
-| Stage 3: Static Liveness Memory Planner                                     |
-|   Inputs: IR node dependency graph                                          |
-|   Outputs: Contiguous byte offsets for weights, activations, and ping-pong  |
-|                                                                             |
-| Stage 4: Freestanding C99 Code Synthesis                                    |
-|   Inputs: Scheduled memory plan, fixed-point kernels                        |
-|   Outputs: mtc_model.h, mtc_model.c, mtc_train.c (Zero malloc)              |
-+-----------------------------------------------------------------------------+
-```
+MTC is implemented as an ahead-of-time compiler consisting of four pipeline stages (Fig. 1):
+- **Stage 1 (AST Normalization):** Ingests model JSON topology and training sample vectors, emitting normalized IR nodes and validating layer shape compatibility contracts.
+- **Stage 2 (Interval Bound Propagation):** Formally bounds activation intervals over $[-1.0, +1.0]$ in Q15 arithmetic and flags arithmetic saturation hazards prior to code synthesis.
+- **Stage 3 (Static Liveness Memory Planner):** Maps all tensor buffers to fixed static byte offsets and provisions exactly two alternating ping-pong scratchpads.
+- **Stage 4 (Freestanding C99 Code Synthesis):** Generates standalone C99 source files (`mtc_model.h`, `mtc_model.c`, `mtc_train.c`) requiring zero dynamic heap allocations.
 
 ### A. Stage 1: Frontend Parsing & AST Validation
 The compiler takes a declarative JSON specification defining the layer dimensions, activation types, training hyperparameters, and embedded sample sets. The validator enforces strict compatibility contracts:
@@ -289,8 +274,8 @@ Execution clock cycles were recorded directly via the hardware `mcycle` CSR on t
 
 Table II highlights the computational efficiency of MTC. A complete forward inference pass executes in 2.15 µs to 21.26 µs. A complete training step—including forward propagation, loss evaluation, backward error propagation, and in-place SGD weight updates—completes in **6.86 µs to 81.77 µs**. Training throughput ranges between 12,229 and 145,772 samples per second, confirming that on-device training steps can be integrated into high-frequency sensor polling loops with minimal CPU duty cycle overhead.
 
-![Fig. 2: Hardware Training Throughput and Latency Measured on ESP32-C3 via CSR mcycle](images/hardware_throughput.png)
-*Fig. 2. Hardware training throughput and cycle latency measured on ESP32-C3 @ 160 MHz.*
+![Fig. 3: Hardware Training Throughput and Latency Measured on ESP32-C3 via CSR mcycle](images/hardware_throughput.png)
+*Fig. 3. Hardware training throughput and cycle latency measured on ESP32-C3 @ 160 MHz.*
 
 ### C. Memory Ablation: MTC vs. Dynamic Autograd Graph Baseline
 To quantify the memory savings of fused in-place SGD updates and ping-pong buffering, we compared MTC against a baseline representing standard autograd engines (e.g., PyTorch Autograd, AIfES). The baseline allocates explicit parameter gradient arrays ($\nabla W, \nabla B$) and separate activation error buffers ($\delta^{(l)}$) for every layer.
@@ -306,8 +291,8 @@ To quantify the memory savings of fused in-place SGD updates and ping-pong buffe
 
 As demonstrated in Table III, MTC saves between 31.8% and 43.6% of peak SRAM across the benchmark suite (averaging **40.1% memory reduction**). The absolute memory savings scale with network depth and parameter count: on `sensor_drift_net`, MTC saves 436 Bytes of SRAM by eliminating dedicated gradient buffers and sharing delta buffers.
 
-![Fig. 3: Memory Ablation: Peak SRAM Watermark of Standard Autograd vs. MTC Static Fused Buffers](images/memory_ablation.png)
-*Fig. 3. SRAM watermark ablation between baseline dynamic autograd and MTC static memory planning.*
+![Fig. 4: Memory Ablation: Peak SRAM Watermark of Standard Autograd vs. MTC Static Fused Buffers](images/memory_ablation.png)
+*Fig. 4. SRAM watermark ablation between baseline dynamic autograd and MTC static memory planning.*
 
 ### D. Numerical Convergence and Loss Reduction
 To confirm that fixed-point Q15 arithmetic maintains numerical convergence without arithmetic divergence or loss overflow, we monitored MSE loss trajectories over training epochs.
@@ -323,8 +308,8 @@ To confirm that fixed-point Q15 arithmetic maintains numerical convergence witho
 
 Regression and anomaly detection workloads exhibited strong convergence under Q15 integer arithmetic: `gesture_anomaly_net` achieved an **81.81% loss reduction** (0.1550 $\to$ 0.0282), `sine_regression_net` achieved a **75.88% reduction** (0.0667 $\to$ 0.0161), and `sensor_drift_net` achieved a **51.65% reduction** (0.0927 $\to$ 0.0448). The loss profiles showed steady, monotonic decrease without numerical overflow.
 
-![Fig. 4: Comparative Training Loss Convergence Across 4 TinyML Workloads on esp32sim](images/combined_convergence.png)
-*Fig. 4. Empirical training loss convergence curves across four TinyML workloads on bare-metal esp32sim.*
+![Fig. 5: Comparative Training Loss Convergence Across 4 TinyML Workloads on esp32sim](images/combined_convergence.png)
+*Fig. 5. Empirical training loss convergence curves across four TinyML workloads on bare-metal esp32sim.*
 
 ---
 

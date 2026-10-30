@@ -132,10 +132,11 @@ MTC was evaluated across four diverse TinyML benchmarks (`xor_net`, `sensor_drif
 
 ## LIST OF FIGURES
 
-- **Figure 1.1:** System Architecture and End-to-End Compiler Dataflow of MTC
-- **Figure 5.1:** Comparative Training Loss Convergence Across 4 TinyML Workloads on `esp32sim`
-- **Figure 5.2:** Cycle-Accurate Hardware Training Throughput on ESP32-C3 @ 160 MHz
-- **Figure 5.3:** Memory Ablation: Peak SRAM Watermark of Standard Autograd vs. MTC Static Fused Buffers
+- **Figure 3.1:** System Architecture and End-to-End Compiler Dataflow of MTC
+- **Figure 3.2:** Memory Architecture Comparison: Dynamic Autograd Graph vs. MTC Static Liveness Allocation
+- **Figure 5.1:** Hardware Execution Latency and Training Throughput Measured via CSR `mcycle` on ESP32-C3 @ 160 MHz
+- **Figure 5.2:** Peak SRAM Watermark Ablation: Dynamic Autograd Baseline vs. MTC Static Liveness Allocation
+- **Figure 5.3:** Numerical Convergence and MSE Loss Decay Curves Across 4 TinyML Workloads on `esp32sim`
 
 ---
 
@@ -245,59 +246,6 @@ Based on our literature survey, four specific technical gaps were identified:
 
 # CHAPTER 3: SYSTEM DESIGN & COMPILER ARCHITECTURE
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│              MICRO-TRAIN-COMPILER (MTC) COMPILER ARCHITECTURE               │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│   ┌─────────────────────┐         ┌──────────────────────────────────────┐  │
-│   │  Model JSON Spec    │         │  Embedded Dataset Samples            │  │
-│   │  (Layers, η, Epoch) │         │  (Flash Const int16_t Arrays)        │  │
-│   └──────────┬──────────┘         └──────────────────┬───────────────────┘  │
-│              │                                       │                      │
-│              ▼                                       ▼                      │
-│   ┌──────────────────────────────────────────────────────────────────────┐  │
-│   │ STAGE 1: FRONTEND PARSER & AST NORMALIZATION (ir.py, validate.py)    │  │
-│   │ • Enforces layer dimensional compatibility                           │  │
-│   │ • Normalizes Dense, Activation, Loss, and Optimizer Nodes            │  │
-│   └──────────────────────────────────┬───────────────────────────────────┘  │
-│                                      │                                      │
-│                                      ▼                                      │
-│   ┌──────────────────────────────────────────────────────────────────────┐  │
-│   │ STAGE 2: CONSERVATIVE INTERVAL RANGE ANALYSIS (analysis.py)          │  │
-│   │ • Propagates forward activation intervals [-1.0, +1.0] in Q15        │  │
-│   │ • Propagates conservative backward gradient bounds                   │  │
-│   │ • Formally verifies arithmetic saturation safety before code emit    │  │
-│   └──────────────────────────────────┬───────────────────────────────────┘  │
-│                                      │                                      │
-│                                      ▼                                      │
-│   ┌──────────────────────────────────────────────────────────────────────┐  │
-│   │ STAGE 3: STATIC LIVENESS MEMORY PLANNER (memory_planner.py)          │  │
-│   │ • Allocates forward activation buffers at fixed byte offsets         │  │
-│   │ • Reuses exactly TWO alternating ping-pong delta buffers             │  │
-│   │ • Fuses backward error backprop with in-place SGD weight updates     │  │
-│   │ • ELIMINATES separate grad_W and grad_B buffers entirely             │  │
-│   └──────────────────────────────────┬───────────────────────────────────┘  │
-│                                      │                                      │
-│                                      ▼                                      │
-│   ┌──────────────────────────────────────────────────────────────────────┐  │
-│   │ STAGE 4: STANDALONE C99 CODE GENERATOR (codegen.py)                  │  │
-│   │ • Synthesizes mtc_model.h, mtc_model.c, mtc_train.c                  │  │
-│   │ • Zero dynamic allocation (malloc = 0, free = 0)                     │  │
-│   │ • Static bounded arrays with saturating Q15 integer math             │  │
-│   └──────────────────────────────────┬───────────────────────────────────┘  │
-│                                      │                                      │
-│                                      ▼                                      │
-│   ┌──────────────────────────────────────────────────────────────────────┐  │
-│   │ BARE-METAL EMBEDDED COMPILATION & SILICON EMULATION                  │  │
-│   │ • riscv64-unknown-elf-gcc (-march=rv32imc_zicsr -nostdlib -O2)       │  │
-│   │ • Linker memory placement (IRAM: 0x40380000, DRAM: 0x3FC8B800)       │  │
-│   │ • Cycle-accurate execution via esp32sim & hardware CSR mcycle reads  │  │
-│   └──────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
-
 ### 3.1 Architectural Overview & Execution Pipeline
 The Micro-Train-Compiler (MTC) operates as an ahead-of-time (AOT) source-to-source compiler. Implemented in Python 3.10+ using only standard library modules, it parses a high-level declarative model definition and compiles it down to self-contained C99 source and header files. 
 
@@ -307,8 +255,8 @@ The compilation pipeline executes through four sequential phases:
 3. **Static Liveness Memory Planning:** Constructs memory lifecycles for all intermediate values, allocates forward activations into a contiguous static arena, provisions two alternating ping-pong activation delta buffers, and fuses parameter updates directly into weight storage.
 4. **C99 Standalone Code Synthesis:** Generates portable, zero-allocation C99 code (`mtc_model.h`, `mtc_model.c`, `mtc_train.c`) accompanied by CMake compilation rules.
 
-![Figure 1.1: System Architecture and End-to-End Compiler Dataflow of MTC](images/system_architecture.png)
-*Figure 1.1: System Architecture and End-to-End Compiler Dataflow of MTC.*
+![Figure 3.1: System Architecture and End-to-End Compiler Dataflow of MTC](images/system_architecture.png)  
+*Figure 3.1: System Architecture and End-to-End Compiler Dataflow of MTC.*
 
 ---
 
@@ -369,6 +317,9 @@ $$\text{Buffer Size} = \max_{l} (\text{out\_features}_l) \times 2 \text{ bytes}$
 - Pass $l$: Read error from `delta_buffer_A`, compute gradients, write previous layer error into `delta_buffer_B`.
 - Pass $l-1$: Read error from `delta_buffer_B`, compute gradients, write into `delta_buffer_A`.
 This guarantees $O(\max(\text{dim}))$ SRAM scaling instead of $O(\sum \text{dim})$.
+
+![Figure 3.2: Memory Architecture Comparison: Dynamic Autograd Graph vs. MTC Static Liveness Allocation](images/ping_pong_fused_liveness.png)  
+*Figure 3.2: Memory Architecture Comparison: Dynamic Autograd Graph (left) vs. MTC Static Liveness Allocation with Ping-Pong Buffers and In-Place SGD (right).*
 
 ---
 
@@ -564,8 +515,8 @@ Execution latency was measured on the ESP32-C3 RV32IMC core running at its nomin
 1. **Microsecond-Scale Training Steps:** A complete training sample step (forward pass, loss evaluation, backpropagation, and in-place SGD parameter update) executes in **6.86 µs to 81.77 µs**.
 2. **Real-Time Sampling Feasibility:** Achieving throughput between **12,229 and 145,772 samples per second** confirms that on-device training steps consume negligible CPU duty cycles, allowing microcontrollers to adapt weights concurrently with sensor sampling loops without missing deadlines.
 
-![Figure 5.2: Cycle-Accurate Hardware Training Throughput on ESP32-C3 @ 160 MHz](images/hardware_throughput.png)
-*Figure 5.2: Cycle-Accurate Hardware Training Throughput on ESP32-C3 @ 160 MHz.*
+![Figure 5.1: Cycle-Accurate Hardware Training Throughput on ESP32-C3 @ 160 MHz](images/hardware_throughput.png)  
+*Figure 5.1: Cycle-Accurate Hardware Training Throughput on ESP32-C3 @ 160 MHz.*
 
 ---
 
@@ -590,8 +541,8 @@ The baseline autograd model allocates:
 - MTC achieves an average **40.1% reduction in peak SRAM** across all evaluated architectures.
 - Savings scale with network depth and parameter count: in `sensor_drift_net`, eliminating dedicated gradient arrays ($\nabla W$) and sharing ping-pong delta buffers frees 436 bytes of RAM (a 43.6% reduction).
 
-![Figure 5.3: Memory Ablation: Peak SRAM Watermark of Standard Autograd vs. MTC Static Fused Buffers](images/memory_ablation.png)
-*Figure 5.3: Memory Ablation: Peak SRAM Watermark of Standard Autograd vs. MTC Static Fused Buffers.*
+![Figure 5.2: Memory Ablation: Peak SRAM Watermark of Standard Autograd vs. MTC Static Fused Buffers](images/memory_ablation.png)  
+*Figure 5.2: Peak SRAM Watermark Ablation: Dynamic Autograd Baseline vs. MTC Static Liveness Allocation.*
 
 ---
 
@@ -610,8 +561,8 @@ To verify that 16-bit fixed-point (Q15) arithmetic does not cause numerical inst
 - Continuous regression and anomaly detection workloads converge with high fidelity under pure Q15 arithmetic: `gesture_anomaly_net` achieved an **81.81% reduction in loss** (0.1550 $\to$ 0.0282), `sine_regression_net` achieved a **75.88% reduction** (0.0667 $\to$ 0.0161), and `sensor_drift_net` achieved a **51.65% reduction** (0.0927 $\to$ 0.0448).
 - The loss curves decline monotonically without arithmetic overflow or numeric divergence.
 
-![Figure 5.1: Comparative Training Loss Convergence Across 4 TinyML Workloads on esp32sim](images/combined_convergence.png)
-*Figure 5.1: Comparative Training Loss Convergence Across 4 TinyML Workloads on esp32sim.*
+![Figure 5.3: Comparative Training Loss Convergence Across 4 TinyML Workloads on esp32sim](images/combined_convergence.png)  
+*Figure 5.3: Numerical Convergence and Loss Reduction Across 4 TinyML Workloads on esp32sim.*
 
 ---
 
